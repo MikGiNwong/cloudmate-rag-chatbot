@@ -1,0 +1,134 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: CloudMate week 2 private source documents and public read-only health API
+
+Resources:
+  DocumentsBucket:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      BucketName: !Sub 'cloudmate-docs-${AWS::AccountId}-${AWS::Region}'
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        IgnorePublicAcls: true
+        BlockPublicPolicy: true
+        RestrictPublicBuckets: true
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerEnforced
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      VersioningConfiguration:
+        Status: Enabled
+      Tags:
+        - Key: Project
+          Value: CloudMate
+        - Key: Week
+          Value: '2'
+        - Key: ManagedBy
+          Value: AWS-SAM
+
+  HealthLogGroup:
+    Type: AWS::Logs::LogGroup
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
+    Properties:
+      LogGroupName: /aws/lambda/cloudmate-health-check
+      RetentionInDays: 7
+      Tags:
+        - Key: Project
+          Value: CloudMate
+        - Key: Week
+          Value: '2'
+        - Key: ManagedBy
+          Value: AWS-SAM
+
+  HealthExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      Description: CloudMate health function can write only to its existing log group
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: WriteHealthLogs
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Sid: WriteOwnLogStreams
+                Effect: Allow
+                Action:
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: !GetAtt HealthLogGroup.Arn
+      Tags:
+        - Key: Project
+          Value: CloudMate
+        - Key: Week
+          Value: '2'
+        - Key: ManagedBy
+          Value: AWS-SAM
+
+  HealthHttpApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      Name: !Sub '${AWS::StackName}-http-api'
+      Description: Public GET /health for week 2 verification
+      StageName: '$default'
+      DefaultRouteSettings:
+        ThrottlingBurstLimit: 5
+        ThrottlingRateLimit: 2
+      Tags:
+        Project: CloudMate
+        Week: '2'
+        ManagedBy: AWS-SAM
+
+  HealthFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: cloudmate-health-check
+      Description: CloudMate week 2 health check without S3 or Bedrock access
+      Runtime: python3.13
+      Architectures:
+        - arm64
+      Handler: app.lambda_handler
+      CodeUri: ../backend/health/
+      MemorySize: 128
+      Timeout: 3
+      Role: !GetAtt HealthExecutionRole.Arn
+      Events:
+        GetHealth:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref HealthHttpApi
+            Path: /health
+            Method: GET
+            PayloadFormatVersion: '2.0'
+      Tags:
+        Project: CloudMate
+        Week: '2'
+        ManagedBy: AWS-SAM
+
+Outputs:
+  HealthApiUrl:
+    Description: Public HTTPS endpoint for GET /health
+    Value: !Sub 'https://${HealthHttpApi}.execute-api.${AWS::Region}.${AWS::URLSuffix}/health'
+  DocumentsBucketName:
+    Description: Private source document bucket; redact the account portion before publishing
+    Value: !Ref DocumentsBucket
+  DocumentsPrefix:
+    Description: Prefix reserved for future Knowledge Bases source documents
+    Value: documents/
+  HealthFunctionName:
+    Description: Health Lambda function name
+    Value: !Ref HealthFunction
+  HealthLogGroupName:
+    Description: Log group with seven-day retention
+    Value: !Ref HealthLogGroup

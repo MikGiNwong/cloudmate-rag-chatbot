@@ -1,0 +1,18 @@
+$ .venv/bin/python -m unittest discover -s backend/tests -v
+test_exception_returns_safe_json_and_safe_log (test_health.HealthTests.test_exception_returns_safe_json_and_safe_log) ... ok
+test_get_health_returns_exact_contract (test_health.HealthTests.test_get_health_returns_exact_contract) ... ok
+test_malformed_events_return_400 (test_health.HealthTests.test_malformed_events_return_400) ... ok
+test_other_methods_return_405 (test_health.HealthTests.test_other_methods_return_405) ... ok
+test_request_and_context_are_not_logged (test_health.HealthTests.test_request_and_context_are_not_logged) ... ok
+test_unknown_path_returns_404 (test_health.HealthTests.test_unknown_path_returns_404) ... ok
+test_network_and_http_errors_fail (test_verify_api.VerifyApiTests.test_network_and_http_errors_fail) ... ok
+test_response_contract (test_verify_api.VerifyApiTests.test_response_contract) ... ok
+test_unsafe_urls_are_rejected (test_verify_api.VerifyApiTests.test_unsafe_urls_are_rejected) ... ok
+test_url_normalization (test_verify_api.VerifyApiTests.test_url_normalization) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.007s
+
+OK
+
+exit_code=0

@@ -1,0 +1,46 @@
+# Local credentials, sessions and agent state
+.aws/
+.codex/
+.agents/
+.env
+.env.*
+!.env.example
+credentials
+credentials.*
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Python and local toolchains
+.venv/
+venv/
+.tools/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Build outputs and editor state
+.aws-sam/
+node_modules/
+dist/
+build/
+.DS_Store
+.vscode/
+.idea/
+
+# Original coursework and submission files can contain personal information.
+*.docx
+*.doc
+*.pdf
+docs/**/private/
+docs/**/submission/
+docs/week1/media/
+
+# Only reviewed, redacted text evidence is eligible for publication.
+docs/week2/evidence/raw/
+docs/week2/evidence/screenshots/
+*.log
+samconfig.local.toml

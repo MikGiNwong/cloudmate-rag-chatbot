@@ -1,0 +1,32 @@
+Checked at 2026-11-25T01:43:35.626289+09:00
+Project path: [PROJECT]
+OS: macOS-27.2.1-arm64-arm-64bit-Mach-O
+CPU: arm64
+$ sw_vers
+ProductName:		macOS
+ProductVersion:		27.2.1
+BuildVersion:		26B131
+$ python3 --version
+Python 3.13.17
+$ git --version
+git version 2.54.0 (Apple Git-157)
+$ .tools/bin/aws --version
+aws-cli/2.42.2 Python/3.14.10 Darwin/27.2.0 script-exe/arm64
+$ .venv/bin/sam --version
+SAM CLI, version 1.174.0
+$ .venv/bin/cfn-lint --version
+cfn-lint 1.58.0
+$ .tools/bin/gh --version
+gh version 2.105.0 (2026-11-17)
+https://github.com/cli/cli/releases/tag/v2.105.0
+VS Code: installed application; code command not on PATH
+Docker: not installed; dependency-free SAM build does not require Docker
+Initial Git repository: absent; local repository initialized on main
+AWS plugin STS: succeeded; account and ARN omitted
+Local AWS CLI STS: failed with NoCredentials, exit 253
+GitHub plugin: authenticated; profile email omitted
+Local gh auth: not logged in, exit 1
+AWS CLI PKG signature: verified, Amazon team 94KV3E626L
+GitHub CLI SHA-256: verified against official release asset metadata and checksums
+Tools: .venv and .tools, installed after user approval
+No AWS resource creation or GitHub remote writes performed

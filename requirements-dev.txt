@@ -1,0 +1,2 @@
+# Install only into .venv; Lambda uses backend/health/requirements.txt.
+aws-sam-cli==1.174.0

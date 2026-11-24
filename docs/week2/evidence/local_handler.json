@@ -1,0 +1,12 @@
+{
+  "execution": "local direct handler call; not AWS or HTTP",
+  "result": {
+    "statusCode": 200,
+    "headers": {
+      "Content-Type": "application/json; charset=utf-8",
+      "Cache-Control": "no-store"
+    },
+    "isBase64Encoded": false,
+    "body": "{\"status\": \"ok\", \"service\": \"CloudMate\", \"message\": \"AWS Lambda is working\", \"week\": 2}"
+  }
+}

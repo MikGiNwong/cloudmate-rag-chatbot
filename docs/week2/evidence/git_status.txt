@@ -1,0 +1,14 @@
+{
+  "secret_and_personal_data_scan": "passed",
+  "reviewed_files": 24,
+  "findings": [],
+  "reviewed_false_positive": [
+    {
+      "file": "backend/tests/test_verify_api.py",
+      "type": "reserved example.com test fixture"
+    }
+  ],
+  "ignore_rules": "passed",
+  "original_docx": "preserved and ignored",
+  "remote": "not configured; no push performed"
+}

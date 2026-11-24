@@ -1,0 +1,34 @@
+{
+  "verified_via": "AWS connected tool",
+  "sts_authenticated": true,
+  "region": "ap-northeast-2",
+  "checks": [
+    {
+      "target": "lambda",
+      "operation": "GetFunction",
+      "error_code": "ResourceNotFoundException"
+    },
+    {
+      "target": "cloudmate-week2",
+      "operation": "DescribeStacks",
+      "error_code": "ValidationError"
+    },
+    {
+      "target": "aws-sam-cli-managed-default",
+      "operation": "DescribeStacks",
+      "error_code": "ValidationError"
+    },
+    {
+      "target": "s3",
+      "operation": "HeadBucket",
+      "error_code": "404"
+    },
+    {
+      "target": "logs",
+      "operation": "DescribeLogGroups",
+      "exact_name_exists": false
+    }
+  ],
+  "identifiers_redacted": true,
+  "resource_creation_performed": false
+}

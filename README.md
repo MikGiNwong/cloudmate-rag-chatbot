@@ -101,7 +101,7 @@ gh repo create cloudmate-rag-chatbot --private --source=. --remote=origin --push
 
 ## 비용과 환경 정리
 
-과금 항목은 HTTP API 요청, Lambda 요청·실행 시간, S3 문서·버전·배포 패키지 저장/요청, CloudWatch 로그 수집/보관, 해당되는 데이터 전송이다. 소량 실습을 전제로 하지만 무료 여부는 계정 조건에 따라 다르다. [API Gateway](https://aws.amazon.com/api-gateway/pricing/), [Lambda](https://aws.amazon.com/lambda/pricing/), [S3](https://aws.amazon.com/s3/pricing/), [CloudWatch](https://aws.amazon.com/cloudwatch/pricing/) 요금을 확인한다. NAT Gateway, EC2, RDS, OpenSearch, Bedrock 리소스·추론은 사용하지 않는다.
+과금 항목은 HTTP API 요청, Lambda 요청·실행 시간, S3 문서·버전·배포 패키지 저장/요청, CloudWatch 로그 수집/보관, 해당되는 데이터 전송이다. SAM 관리 패키지 버킷은 기본적으로 SSE-KMS를 사용하므로 KMS 요청 비용도 발생할 수 있다. 소량 실습을 전제로 하지만 무료 여부는 계정 조건에 따라 다르다. [API Gateway](https://aws.amazon.com/api-gateway/pricing/), [Lambda](https://aws.amazon.com/lambda/pricing/), [S3](https://aws.amazon.com/s3/pricing/), [CloudWatch](https://aws.amazon.com/cloudwatch/pricing/), [KMS](https://aws.amazon.com/kms/pricing/) 요금을 확인한다. NAT Gateway, EC2, RDS, OpenSearch, Bedrock 리소스·추론은 사용하지 않는다.
 
 **정리는 별도 삭제 승인을 받은 후에만 수행한다.** 먼저 스택과 실제 리소스 목록을 확인한다. 보존 정책 때문에 스택 삭제만으로 모든 리소스가 사라지지 않는다.
 

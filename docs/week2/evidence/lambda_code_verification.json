@@ -1,0 +1,14 @@
+{
+  "checked_at_utc": "2026-11-24T17:09:12.321741+00:00",
+  "function_name": "cloudmate-health-check",
+  "aws_code_sha256_base64": "oEzUTXDgr/VQSAa7K/QnOKTw5JeVHh1vODfzPROPcuY=",
+  "downloaded_zip_sha256_base64": "oEzUTXDgr/VQSAa7K/QnOKTw5JeVHh1vODfzPROPcuY=",
+  "zip_sha_matches": true,
+  "archive_files": [
+    "requirements.txt",
+    "app.py"
+  ],
+  "source_sha256": "c933b5ac8ec14121d9d1951626e6cf40835fd58bcce53eae2e4ca2a6e4af6dc1",
+  "deployed_app_sha256": "c933b5ac8ec14121d9d1951626e6cf40835fd58bcce53eae2e4ca2a6e4af6dc1",
+  "app_matches_local": true
+}

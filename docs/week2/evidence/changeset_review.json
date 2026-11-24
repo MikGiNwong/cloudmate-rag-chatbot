@@ -1,0 +1,131 @@
+{
+  "change_set_name": "samcli-deploy1795539774",
+  "status": "CREATE_COMPLETE",
+  "execution_status": "AVAILABLE",
+  "changes": [
+    {
+      "action": "Add",
+      "logical_id": "DocumentsBucket",
+      "type": "AWS::S3::Bucket"
+    },
+    {
+      "action": "Add",
+      "logical_id": "HealthExecutionRole",
+      "type": "AWS::IAM::Role"
+    },
+    {
+      "action": "Add",
+      "logical_id": "HealthFunctionGetHealthPermission",
+      "type": "AWS::Lambda::Permission"
+    },
+    {
+      "action": "Add",
+      "logical_id": "HealthFunction",
+      "type": "AWS::Lambda::Function"
+    },
+    {
+      "action": "Add",
+      "logical_id": "HealthHttpApiApiGatewayDefaultStage",
+      "type": "AWS::ApiGatewayV2::Stage"
+    },
+    {
+      "action": "Add",
+      "logical_id": "HealthHttpApi",
+      "type": "AWS::ApiGatewayV2::Api"
+    },
+    {
+      "action": "Add",
+      "logical_id": "HealthLogGroup",
+      "type": "AWS::Logs::LogGroup"
+    }
+  ],
+  "validation_events": {
+    "OperationEvents": [
+      {
+        "EventId": "6111d580-5d9e-4de2-860a-bd7474b2c9cd",
+        "StackId": "arn:aws:cloudformation:ap-northeast-2:[AWS_ACCOUNT_ID]:stack/cloudmate-week2/e43e73b0-e828-11f1-84f0-02fc0eab24f7",
+        "OperationId": "a3962bc6-9c2b-46d5-8bc7-86313079e671",
+        "OperationType": "CREATE_CHANGESET",
+        "OperationStatus": "SUCCEEDED",
+        "EventType": "STACK_EVENT",
+        "Timestamp": "2026-11-24T17:02:59.997000+00:00",
+        "StartTime": "2026-11-24T17:02:55.234000+00:00",
+        "EndTime": "2026-11-24T17:02:59.997000+00:00"
+      },
+      {
+        "EventId": "9f66e253-d617-4fc5-8e85-77f03e177966",
+        "StackId": "arn:aws:cloudformation:ap-northeast-2:[AWS_ACCOUNT_ID]:stack/cloudmate-week2/e43e73b0-e828-11f1-84f0-02fc0eab24f7",
+        "OperationId": "a3962bc6-9c2b-46d5-8bc7-86313079e671",
+        "OperationType": "CREATE_CHANGESET",
+        "OperationStatus": "IN_PROGRESS",
+        "EventType": "STACK_EVENT",
+        "Timestamp": "2026-11-24T17:02:55.234000+00:00",
+        "StartTime": "2026-11-24T17:02:55.234000+00:00"
+      }
+    ]
+  },
+  "execution_role": {
+    "Description": "CloudMate health function can write only to its existing log group",
+    "AssumeRolePolicyDocument": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Principal": {
+            "Service": "lambda.amazonaws.com"
+          },
+          "Action": "sts:AssumeRole"
+        }
+      ]
+    },
+    "Policies": [
+      {
+        "PolicyName": "WriteHealthLogs",
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Sid": "WriteOwnLogStreams",
+              "Effect": "Allow",
+              "Action": [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+              ],
+              "Resource": {
+                "Fn::GetAtt": [
+                  "HealthLogGroup",
+                  "Arn"
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "Tags": [
+      {
+        "Key": "Project",
+        "Value": "CloudMate"
+      },
+      {
+        "Key": "Week",
+        "Value": "2"
+      },
+      {
+        "Key": "ManagedBy",
+        "Value": "AWS-SAM"
+      }
+    ]
+  },
+  "lambda_configuration": {
+    "FunctionName": "cloudmate-health-check",
+    "Runtime": "python3.13",
+    "Architectures": [
+      "arm64"
+    ],
+    "MemorySize": 128,
+    "Timeout": 3,
+    "Handler": "app.lambda_handler"
+  },
+  "only_add_operations": true
+}

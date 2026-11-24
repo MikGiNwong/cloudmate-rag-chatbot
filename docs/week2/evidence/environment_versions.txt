@@ -23,10 +23,10 @@ VS Code: installed application; code command not on PATH
 Docker: not installed; dependency-free SAM build does not require Docker
 Initial Git repository: absent; local repository initialized on main
 AWS plugin STS: succeeded; account and ARN omitted
-Local AWS CLI STS: failed with NoCredentials, exit 253
+Initial local AWS CLI STS: NoCredentials, exit 253; after approved browser login: succeeded; see aws_cli_auth.json
 GitHub plugin: authenticated; profile email omitted
 Local gh auth: not logged in, exit 1
 AWS CLI PKG signature: verified, Amazon team 94KV3E626L
 GitHub CLI SHA-256: verified against official release asset metadata and checksums
 Tools: .venv and .tools, installed after user approval
-No AWS resource creation or GitHub remote writes performed
+Initial preparation had no remote writes. Approved AWS deployment is now in progress; see deployment evidence for final status.

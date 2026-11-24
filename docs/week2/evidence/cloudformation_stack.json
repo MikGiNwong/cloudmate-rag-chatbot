@@ -1,0 +1,31 @@
+{
+  "stack_name": "cloudmate-week2",
+  "status": "CREATE_COMPLETE",
+  "outputs": [
+    {
+      "OutputKey": "HealthFunctionName",
+      "OutputValue": "cloudmate-health-check",
+      "Description": "Health Lambda function name"
+    },
+    {
+      "OutputKey": "DocumentsBucketName",
+      "OutputValue": "cloudmate-docs-[AWS_ACCOUNT_ID]-ap-northeast-2",
+      "Description": "Private source document bucket; redact the account portion before publishing"
+    },
+    {
+      "OutputKey": "DocumentsPrefix",
+      "OutputValue": "documents/",
+      "Description": "Prefix reserved for future Knowledge Bases source documents"
+    },
+    {
+      "OutputKey": "HealthApiUrl",
+      "OutputValue": "https://b1prf542b3.execute-api.ap-northeast-2.amazonaws.com/health",
+      "Description": "Public HTTPS endpoint for GET /health"
+    },
+    {
+      "OutputKey": "HealthLogGroupName",
+      "OutputValue": "/aws/lambda/cloudmate-health-check",
+      "Description": "Log group with seven-day retention"
+    }
+  ]
+}

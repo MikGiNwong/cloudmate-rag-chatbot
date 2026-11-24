@@ -1,0 +1,13 @@
+{
+  "checked_at_utc": "2026-11-24T17:07:19.595796+00:00",
+  "bucket": "cloudmate-docs-[AWS_ACCOUNT_ID]-ap-northeast-2",
+  "key": "documents/aws-faq.txt",
+  "upload_http_status": 200,
+  "download_http_status": 200,
+  "content_type": "text/plain; charset=utf-8",
+  "source_bytes": 3920,
+  "downloaded_bytes": 3920,
+  "source_sha256": "c4e0bd00553d41e73c2968eb7dade5d3e4394804a4c48ccc922956a2d60442d1",
+  "downloaded_sha256": "c4e0bd00553d41e73c2968eb7dade5d3e4394804a4c48ccc922956a2d60442d1",
+  "contents_match": true
+}

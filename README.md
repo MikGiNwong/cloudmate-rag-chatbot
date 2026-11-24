@@ -4,6 +4,8 @@ CloudMate는 AWS 공식 문서와 실습 가이드, 직접 작성한 FAQ를 근�
 
 2주차는 비공개 원본 문서 저장소와 `GET /health` 테스트 API를 준비하는 단계다. **로컬 구현과 AWS 실제 배포 결과는 [환경 보고서](docs/week2/environment_report.md)에서 구분한다.** 원본 1주차 DOCX는 로컬에만 보존한다.
 
+2026-11-25 서울 리전 배포 후 [실제 상태 API](https://b1prf542b3.execute-api.ap-northeast-2.amazonaws.com/health)의 HTTP 200과 응답 JSON, S3 FAQ 저장·내용 일치, Lambda 코드 일치, CloudWatch 로그를 확인했다. GitHub 저장소는 [MikGiNwong/cloudmate-rag-chatbot](https://github.com/MikGiNwong/cloudmate-rag-chatbot)이며 사용자 승인에 따라 비공개로 생성했다. 검증 시점 이후 리소스를 정리하면 API는 사용할 수 없다.
+
 ## 사용 기술
 
 Python 3.13 · Lambda arm64 · API Gateway HTTP API · S3 · SAM/CloudFormation · IAM · CloudWatch · Git/GitHub · VS Code/Codex를 사용한다. 리전은 서울 `ap-northeast-2`다. 후속 기술은 React/Amplify Hosting, Bedrock Knowledge Bases, S3 Vectors, Titan Text Embeddings V2, Claude Sonnet 계열이다.
@@ -85,6 +87,13 @@ aws logs tail /aws/lambda/cloudmate-health-check --since 10m --region ap-northea
 ```
 
 실제 `head-object` 결과와 로그는 계정 ID, ARN, 개인 경로를 검토·익명화한 뒤 증거 폴더에 저장한다. 공개 API에는 인증을 붙이지 않고 초당 2건·버스트 5건의 기본 스로틀링을 둔다. 스로틀링은 비용 상한을 보장하지 않는다.
+
+macOS Python의 CA 인증서가 구성되지 않아 검증기에서 `CERTIFICATE_VERIFY_FAILED`가 발생하면, SAM 가상환경에 설치된 CA 번들을 지정한 뒤 실행한다. TLS 인증서 검증은 계속 활성화한다.
+
+```sh
+export SSL_CERT_FILE="$(python -m certifi)"
+python scripts/verify_api.py "$CLOUDMATE_HEALTH_URL" --output docs/week2/evidence/api_http.json
+```
 
 ## GitHub
 

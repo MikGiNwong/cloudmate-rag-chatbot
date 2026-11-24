@@ -1,0 +1,18 @@
+Captured from CloudWatch Logs /aws/lambda/cloudmate-health-check after real HTTP calls.
+2026-11-24T17:05:58.405Z INIT_START Runtime Version: python:3.13.mainlinev2.v86	Runtime Version ARN: arn:aws:lambda:ap-northeast-2::runtime:41f88f18c15dcc5ab2dff3d50fd78f22bfe112ea0192d989c2dc0088af6a699d
+
+2026-11-24T17:05:58.477Z START RequestId: 25219b4b-d5a9-4d23-bcfd-ad7bb9baa2f5 Version: $LATEST
+
+2026-11-24T17:05:58.477Z [INFO]	2026-11-24T17:05:58.477Z	25219b4b-d5a9-4d23-bcfd-ad7bb9baa2f5	health_check status=ok week=2
+
+2026-11-24T17:05:58.484Z END RequestId: 25219b4b-d5a9-4d23-bcfd-ad7bb9baa2f5
+
+2026-11-24T17:05:58.484Z REPORT RequestId: 25219b4b-d5a9-4d23-bcfd-ad7bb9baa2f5	Duration: 7.13 ms	Billed Duration: 76 ms	Memory Size: 128 MB	Max Memory Used: 31 MB	Init Duration: 68.17 ms
+
+2026-11-24T17:06:46.252Z START RequestId: b63b70c8-2b1a-4a88-8704-db9624a53d61 Version: $LATEST
+
+2026-11-24T17:06:46.253Z [INFO]	2026-11-24T17:06:46.253Z	b63b70c8-2b1a-4a88-8704-db9624a53d61	health_check status=ok week=2
+
+2026-11-24T17:06:46.254Z END RequestId: b63b70c8-2b1a-4a88-8704-db9624a53d61
+
+2026-11-24T17:06:46.254Z REPORT RequestId: b63b70c8-2b1a-4a88-8704-db9624a53d61	Duration: 1.81 ms	Billed Duration: 2 ms	Memory Size: 128 MB	Max Memory Used: 31 MB

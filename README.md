@@ -1,123 +1,187 @@
-# CloudMate RAG Chatbot
+# CloudMate — AWS 학습 지원 RAG 챗봇
 
-CloudMate는 AWS 공식 문서와 실습 가이드, 직접 작성한 FAQ를 근거로 AWS 학습자의 질문에 답하는 RAG 챗봇 프로젝트다. 답변의 출처와 실습 절차를 제공하고, 이후 AWS 공식 아이콘을 사용하는 실습 아키텍처 시각화를 구현한다.
+CloudMate는 클라우드 아키텍처 수업에서 개발하는 AWS 학습 지원 챗봇 프로젝트입니다. AWS 공식 기술 문서, 공개 실습 가이드, 자체 작성 FAQ를 검색하여 질문에 대한 답변과 근거 자료를 제공하는 것을 목표로 합니다. AWS를 처음 배우는 학생과 실습 중인 개발자를 주요 대상으로 합니다.
 
-2주차는 비공개 원본 문서 저장소와 `GET /health` 테스트 API를 준비하는 단계다. **로컬 구현과 AWS 실제 배포 결과는 [환경 보고서](docs/week2/environment_report.md)에서 구분한다.** 원본 1주차 DOCX는 로컬에만 보존한다.
+**2주차에는 AWS 실행 환경과 개발 환경을 구성하고, 상태 확인 API를 실제 AWS에 배포하여 동작을 검증했습니다.** 문서 검색·임베딩·생성 모델 호출과 웹 채팅 화면은 이후 주차의 구현 범위입니다.
 
-2026-11-25 서울 리전 배포 후 [실제 상태 API](https://b1prf542b3.execute-api.ap-northeast-2.amazonaws.com/health)의 HTTP 200과 응답 JSON, S3 FAQ 저장·내용 일치, Lambda 코드 일치, CloudWatch 로그를 확인했다. GitHub 저장소는 [MikGiNwong/cloudmate-rag-chatbot](https://github.com/MikGiNwong/cloudmate-rag-chatbot)이며 사용자 승인에 따라 비공개로 생성했다. 검증 시점 이후 리소스를 정리하면 API는 사용할 수 없다.
+| 항목 | 내용 |
+|---|---|
+| GitHub 저장소 | [MikGiNwong/cloudmate-rag-chatbot](https://github.com/MikGiNwong/cloudmate-rag-chatbot) · 공개 저장소 |
+| AWS 리전 | 서울 `ap-northeast-2` |
+| 상태 확인 API | [GET /health](https://b1prf542b3.execute-api.ap-northeast-2.amazonaws.com/health) |
+| 검증 기준일 | 2026년 11월 25일 |
+| 설계 문서 | [1주차 설계 요약](docs/week1/design_summary.md) |
+| 실습 보고서 | [2주차 환경 구성 보고서](docs/week2/environment_report.md) |
 
-## 사용 기술
+## 1. 서비스 개발 목표
 
-Python 3.13 · Lambda arm64 · API Gateway HTTP API · S3 · SAM/CloudFormation · IAM · CloudWatch · Git/GitHub · VS Code/Codex를 사용한다. 리전은 서울 `ap-northeast-2`다. 후속 기술은 React/Amplify Hosting, Bedrock Knowledge Bases, S3 Vectors, Titan Text Embeddings V2, Claude Sonnet 계열이다.
+1주차 설계에 따라 다음 기능을 단계적으로 구현할 계획입니다.
 
-## 디렉터리 구조
+- AWS 관련 질문에 대해 검색한 문서를 근거로 답변합니다.
+- 답변과 함께 참고 문서의 제목과 원본 URL을 제공합니다.
+- 등록된 가이드에 근거하여 실습 절차를 단계별로 안내합니다.
+- 필요한 AWS 서비스와 연결 관계를 추출하고, AWS 공식 아이콘을 활용해 실습 아키텍처를 시각화합니다.
+- 관련 자료가 부족하면 근거가 부족하다는 안내를 제공합니다.
 
-```text
-backend/health/          Lambda 코드와 런타임 의존성
-backend/tests/           표준 unittest 기반 계약·오류 처리 테스트
-frontend/README.md      React/Amplify 후속 범위
-data/aws-faq.txt         출처가 있는 자체 작성 FAQ
-infrastructure/          SAM 템플릿과 리소스·검증 설명
-docs/week1/              로컬 원본 DOCX와 공개 가능한 설계 요약
-docs/week2/              한국어 보고서와 익명화된 실행 증거
-scripts/verify_api.py    실제 HTTP 응답 검증과 JSON 증거 저장
-samconfig.toml           서울 리전·스택·빌드·변경 세트 확인 설정
-requirements-dev.txt     검증된 SAM CLI 버전
-AGENTS.md               코드·테스트·보안 작업 지침
+## 2. 2주차 구현 및 검증 결과
+
+| 과제 항목 | 구현 내용 | 확인 결과 |
+|---|---|---|
+| 개발 환경 | Python 3.13, AWS CLI, SAM CLI, Git, GitHub CLI 구성 | 환경 확인 및 인증 완료 |
+| 인프라 관리 | SAM·CloudFormation으로 리소스 정의 및 배포 | 스택 `CREATE_COMPLETE` |
+| 테스트 API | Lambda와 HTTP API의 `GET /health` 연결 | 실제 HTTP 200 및 응답 JSON 일치 |
+| 문서 저장 | 자체 작성 AWS FAQ를 S3의 `documents/aws-faq.txt`에 저장 | 업로드·다운로드 성공, 원본과 SHA-256 일치 |
+| 접근 권한 | 비공개 S3와 함수 전용 IAM 실행 역할 구성 | 버킷 보안 설정·실제 정책 확인 |
+| 모니터링 | CloudWatch Logs에 함수 실행 로그 기록 | 실제 호출 로그 및 7일 보존 설정 확인 |
+| 소스 관리 | Git 커밋 및 GitHub 원격 저장소 연동 | 커밋 푸시와 로컬·원격 해시 일치 확인 |
+
+단위 테스트 10개, Python 문법 검사, SAM 템플릿 검증과 빌드를 통과했습니다. 실행 결과는 [검증 증거 목록](docs/week2/evidence/README.md)에서 확인할 수 있습니다. 표의 결과는 검증 기준일에 수행한 실습을 기준으로 합니다.
+
+## 3. 현재 시스템 구성
+
+```mermaid
+flowchart LR
+    Client[HTTP 클라이언트] --> API[API Gateway HTTP API]
+    API -->|GET /health| Lambda[Lambda · Python 3.13]
+    Lambda --> Logs[CloudWatch Logs]
+    FAQ[자체 작성 AWS FAQ] --> S3[비공개 S3 문서 저장소]
 ```
 
-## 개발 환경과 로컬 테스트
+상태 API는 API Gateway를 통해 Lambda를 호출하고 실행 로그를 CloudWatch에 기록합니다. S3는 이후 RAG 데이터 소스로 사용할 문서를 저장합니다. 현재 상태 API는 문서 검색이나 모델 호출을 수행하지 않습니다.
 
-Python 3.13이 필요하다. 설치된 도구는 프로젝트 내부 `.venv`, `.tools`에 있고 Git에서 제외한다. 새 환경에서 도구를 설치할 때에는 사용자 승인을 먼저 받는다.
+| 역할 | 적용 기술 |
+|---|---|
+| 백엔드 | Python 3.13, AWS Lambda `arm64` |
+| API | Amazon API Gateway HTTP API |
+| 원본 문서 저장 | Amazon S3 |
+| 인프라 코드 | AWS SAM, AWS CloudFormation |
+| 접근 제어 및 로그 | AWS IAM, Amazon CloudWatch |
+| 개발 및 소스 관리 | VS Code, Codex, Git, GitHub |
+
+세부 리소스 설정은 [인프라 구성 설명](infrastructure/README.md)과 [SAM 템플릿](infrastructure/template.yaml)에 정리했습니다.
+
+## 4. 상태 확인 API
+
+```text
+GET https://b1prf542b3.execute-api.ap-northeast-2.amazonaws.com/health
+```
+
+실제 배포된 API에서 HTTP `200 OK`와 `application/json` 응답을 확인했습니다.
+
+```json
+{
+  "status": "ok",
+  "service": "CloudMate",
+  "message": "AWS Lambda is working",
+  "week": 2
+}
+```
+
+다음 명령으로 상태 코드와 응답 본문을 확인할 수 있습니다.
 
 ```sh
+curl -i https://b1prf542b3.execute-api.ap-northeast-2.amazonaws.com/health
+```
+
+[실제 HTTP 응답 기록](docs/week2/evidence/api_http.json)에 검증 시각과 결과를 보관했습니다. 실습 환경 정리 후에는 해당 주소의 서비스가 종료될 수 있습니다.
+
+## 5. 프로젝트 구조
+
+```text
+cloudmate-rag-chatbot/
+├── backend/
+│   ├── health/                 # Lambda 상태 API 및 런타임 의존성
+│   └── tests/                  # API·검증 스크립트 단위 테스트
+├── frontend/                   # React 프론트엔드 개발 범위
+├── data/
+│   └── aws-faq.txt             # 출처를 포함한 자체 작성 FAQ
+├── infrastructure/
+│   ├── template.yaml           # AWS SAM 인프라 정의
+│   └── README.md               # 리소스 구성 및 배포 설명
+├── docs/
+│   ├── week1/design_summary.md # 개인정보를 제외한 1주차 설계 요약
+│   └── week2/
+│       ├── environment_report.md
+│       └── evidence/           # 식별 정보를 제거한 실행 증거
+├── scripts/verify_api.py       # 실제 HTTP 응답 검증
+├── requirements-dev.txt        # SAM CLI 등 개발 도구 의존성
+├── samconfig.toml              # 리전·스택·배포 설정
+├── AGENTS.md                   # 개발·테스트·보안 작업 지침
+└── README.md
+```
+
+1주차 원본 DOCX와 인증 정보, 로컬 가상환경, 빌드 산출물은 공개 저장소에서 제외했습니다.
+
+## 6. 로컬 실행 및 테스트
+
+Python 3.13과 Git이 필요합니다. AWS 배포에는 별도로 AWS CLI v2와 배포 권한이 있는 AWS 프로파일을 사용합니다.
+
+```sh
+git clone https://github.com/MikGiNwong/cloudmate-rag-chatbot.git
+cd cloudmate-rag-chatbot
 python3.13 -m venv .venv
 source .venv/bin/activate
-# 새 환경에서 승인 후 실행
 python -m pip install -r requirements-dev.txt
-export PATH="$PWD/.tools/bin:$PATH"
-export SAM_CLI_TELEMETRY=0
+
 python -m compileall -q backend scripts
 python -m unittest discover -s backend/tests -v
 sam validate --lint --template-file infrastructure/template.yaml --region ap-northeast-2
 sam build
 ```
 
-Lambda 코드는 외부 패키지가 없어 Docker 없이 빌드할 수 있다. `sam local`의 Lambda 에뮬레이션은 Docker가 필요하지만 이번 주 필수 검증에는 포함하지 않는다. `.venv`의 인터프리터를 VS Code에서 선택하면 된다. `code` 명령이 PATH에 없어도 설치된 VS Code 앱으로 폴더를 열 수 있다.
+상태 API는 Python 표준 라이브러리로 구현했습니다. 이번 빌드는 Docker 없이 수행했으며, `sam local`을 통한 Lambda 에뮬레이션을 사용하려면 Docker가 필요합니다.
 
-## AWS 배포
+실제 API의 상태·Content-Type·JSON을 함께 검증하려면 다음 명령을 실행합니다.
 
-**아래 리소스 생성과 FAQ 업로드는 사용자 승인 후에만 실행한다.** 현재 승인·배포 상태는 환경 보고서를 확인한다.
+```sh
+python scripts/verify_api.py https://b1prf542b3.execute-api.ap-northeast-2.amazonaws.com/health
+```
 
-`cloudmate-week2` 스택은 비공개 S3 버킷, 전용 Lambda 로그 그룹, IAM 실행 역할, Lambda 함수, HTTP API와 기본 스테이지, API Gateway 호출 허용 리소스를 생성한다. SAM의 `resolve_s3`는 별도의 `aws-sam-cli-managed-default` 스택과 배포 패키지용 S3 버킷을 생성할 수 있다. 기존 동일 이름 리소스가 있으면 덮어쓰거나 가져오지 말고 소유 관계부터 확인한다.
+macOS Python에서 `CERTIFICATE_VERIFY_FAILED`가 발생하면 가상환경에 설치된 CA 번들을 지정한 뒤 다시 실행할 수 있습니다. TLS 인증서 검증은 유지합니다.
 
-로컬 CLI의 자격증명은 연결된 AWS 플러그인 인증과 별개다. AWS CLI 2.32.0 이상에서 지원하는 `aws login`을 통한 단기 인증을 사용한다. 로그인 실행도 확인 후 진행하며 키를 채팅이나 저장소에 입력하지 않는다. 조직의 기존 SSO 프로파일이 있으면 그 방식을 유지한다.
+```sh
+export SSL_CERT_FILE="$(python -m certifi)"
+```
+
+## 7. AWS 배포 방법
+
+루트의 `samconfig.toml`에 리전 `ap-northeast-2`, 스택 `cloudmate-week2`, IAM 리소스 생성 설정과 변경 세트 확인 옵션을 보존했습니다. AWS 프로파일 인증을 완료한 후 프로젝트 루트에서 실행합니다.
 
 ```sh
 source .venv/bin/activate
-export PATH="$PWD/.tools/bin:$PATH"
-export SAM_CLI_TELEMETRY=0
-# 승인 후 로그인한 로컬 프로파일 사용
 export AWS_PROFILE=cloudmate
-# 이 명령의 원본 출력에는 계정·ARN이 있으므로 공개 증거에 그대로 저장하지 않는다.
-aws sts get-caller-identity --region ap-northeast-2
-sam validate --lint --template-file infrastructure/template.yaml --region ap-northeast-2
+export SAM_CLI_TELEMETRY=0
 sam build
 sam deploy
 ```
 
-`samconfig.toml`에는 스택 `cloudmate-week2`, 리전, `CAPABILITY_IAM`, `confirm_changeset=true`, 패키지 버킷 자동 준비 설정을 보존했다. 첫 실행에서 변경 세트의 생성 대상과 기존 리소스 충돌 여부를 검토한다. IAM 역할은 이름을 직접 지정하지 않아 `CAPABILITY_NAMED_IAM`이 필요하지 않다. 배포 권한과 Lambda 실행 권한은 서로 다르다. 배포 주체에는 CloudFormation·S3·Lambda·API Gateway·Logs·IAM 생성/조회 권한과 새 실행 역할로 제한한 `iam:PassRole` 등이 필요하며, STS 인증 성공만으로 배포 권한을 보장하지 않는다.
+배포 시 문서용 S3 버킷, Lambda 함수, HTTP API, IAM 실행 역할과 로그 그룹을 생성합니다. SAM은 별도 관리 스택과 S3 버킷에 배포 패키지를 저장합니다. 변경 세트를 검토한 후 배포하며, 함수 이름 `cloudmate-health-check`는 같은 계정·리전에서 중복 사용할 수 없습니다.
 
-배포 후 스택 출력의 실제 API 주소로 검증한다.
+배포 완료 후 CloudFormation 출력의 `HealthApiUrl`로 API를 검증합니다. 테스트 문서는 출력의 `DocumentsBucketName`을 사용해 업로드합니다.
 
 ```sh
-aws cloudformation describe-stacks --stack-name cloudmate-week2 --region ap-northeast-2 --query 'Stacks[0].StackStatus' --output text
-CLOUDMATE_HEALTH_URL="$(aws cloudformation describe-stacks --stack-name cloudmate-week2 --region ap-northeast-2 --query 'Stacks[0].Outputs[?OutputKey==`HealthApiUrl`].OutputValue | [0]' --output text)"
-python scripts/verify_api.py "$CLOUDMATE_HEALTH_URL" --output docs/week2/evidence/api_http.json
 CLOUDMATE_BUCKET="$(aws cloudformation describe-stacks --stack-name cloudmate-week2 --region ap-northeast-2 --query 'Stacks[0].Outputs[?OutputKey==`DocumentsBucketName`].OutputValue | [0]' --output text)"
 aws s3 cp data/aws-faq.txt "s3://$CLOUDMATE_BUCKET/documents/aws-faq.txt" --content-type 'text/plain; charset=utf-8' --region ap-northeast-2
 aws s3api head-object --bucket "$CLOUDMATE_BUCKET" --key documents/aws-faq.txt --region ap-northeast-2
-aws logs tail /aws/lambda/cloudmate-health-check --since 10m --region ap-northeast-2
 ```
 
-정상 응답 계약은 HTTP 200, JSON Content-Type과 다음 본문이다. 아래는 **계약 예시**이며 클라우드 실행 증거가 아니다.
+## 8. 보안 및 환경 정리
 
-```json
-{"status":"ok","service":"CloudMate","message":"AWS Lambda is working","week":2}
-```
+S3에는 퍼블릭 액세스 전체 차단, AES256 기본 암호화, ACL 비활성화와 버전 관리를 적용했습니다. Lambda 실행 역할은 해당 함수의 로그 그룹에 스트림 생성·이벤트 기록만 허용하며, S3나 Bedrock 접근 권한은 부여하지 않았습니다. 상태 API에는 초당 2건·버스트 5건의 기본 스로틀링을 설정했습니다.
 
-실제 `head-object` 결과와 로그는 계정 ID, ARN, 개인 경로를 검토·익명화한 뒤 증거 폴더에 저장한다. 공개 API에는 인증을 붙이지 않고 초당 2건·버스트 5건의 기본 스로틀링을 둔다. 스로틀링은 비용 상한을 보장하지 않는다.
+API 요청, 함수 실행, S3 저장·요청, 로그 보관과 패키지 버킷의 암호화 요청 등에 사용료가 발생할 수 있습니다. 스로틀링은 비용 상한을 보장하지 않습니다. 현재 구성에는 EC2, NAT Gateway, RDS, OpenSearch와 Bedrock 추론이 포함되지 않습니다.
 
-macOS Python의 CA 인증서가 구성되지 않아 검증기에서 `CERTIFICATE_VERIFY_FAILED`가 발생하면, SAM 가상환경에 설치된 CA 번들을 지정한 뒤 실행한다. TLS 인증서 검증은 계속 활성화한다.
+실습 종료 후에는 보관할 문서와 로그를 확인하고 스택을 정리합니다. 아래 명령은 배포 리소스를 삭제하므로 환경 정리를 결정한 경우에만 실행합니다.
 
 ```sh
-export SSL_CERT_FILE="$(python -m certifi)"
-python scripts/verify_api.py "$CLOUDMATE_HEALTH_URL" --output docs/week2/evidence/api_http.json
-```
-
-## GitHub
-
-로컬 커밋 후 저장소 공개 여부와 원격 생성·푸시 승인을 받는다. 기본 이름은 `cloudmate-rag-chatbot`이다. GitHub 플러그인 연결과 `gh auth`도 별도이므로 CLI 로그인 상태를 확인한다.
-
-```sh
-gh auth status
-git status --short
-# 승인된 공개 범위에 맞춰 --private 또는 --public 중 하나 사용
-gh repo create cloudmate-rag-chatbot --private --source=. --remote=origin --push
-```
-
-승인이 없으면 위 생성·푸시 명령을 실행하지 않는다. 기존 원격이 있으면 먼저 `git remote -v`로 확인하고 그대로 사용한다. 원본 DOCX, 가상환경, 도구, 인증 정보와 원본 증거는 커밋하지 않는다.
-
-## 비용과 환경 정리
-
-과금 항목은 HTTP API 요청, Lambda 요청·실행 시간, S3 문서·버전·배포 패키지 저장/요청, CloudWatch 로그 수집/보관, 해당되는 데이터 전송이다. SAM 관리 패키지 버킷은 기본적으로 SSE-KMS를 사용하므로 KMS 요청 비용도 발생할 수 있다. 소량 실습을 전제로 하지만 무료 여부는 계정 조건에 따라 다르다. [API Gateway](https://aws.amazon.com/api-gateway/pricing/), [Lambda](https://aws.amazon.com/lambda/pricing/), [S3](https://aws.amazon.com/s3/pricing/), [CloudWatch](https://aws.amazon.com/cloudwatch/pricing/), [KMS](https://aws.amazon.com/kms/pricing/) 요금을 확인한다. NAT Gateway, EC2, RDS, OpenSearch, Bedrock 리소스·추론은 사용하지 않는다.
-
-**정리는 별도 삭제 승인을 받은 후에만 수행한다.** 먼저 스택과 실제 리소스 목록을 확인한다. 보존 정책 때문에 스택 삭제만으로 모든 리소스가 사라지지 않는다.
-
-```sh
-# 별도 삭제 승인 후에만 실행
 aws cloudformation delete-stack --stack-name cloudmate-week2 --region ap-northeast-2
 aws cloudformation wait stack-delete-complete --stack-name cloudmate-week2 --region ap-northeast-2
 ```
 
-위 삭제 후에도 원본 문서 S3 버킷과 로그 그룹은 `Retain`으로 남는다. 로그 이벤트는 7일 보존 정책에 따라 만료된다. 문서 버킷을 완전히 제거하려면 백업 여부를 확인한 뒤 **모든 객체 버전과 삭제 마커**를 검토·삭제하고 버킷을 삭제해야 한다. `aws s3 rm --recursive`만으로 버전 버킷이 비워지지 않는다. 남은 로그 그룹 삭제와 SAM 관리 패키지 버킷/스택 정리는 별도로 승인받고, 다른 SAM 프로젝트의 사용 여부를 확인한다. 보존된 버킷·로그 이름이 재배포와 충돌하면 기존 것을 임의 삭제하지 않는다.
+문서 버킷과 로그 그룹은 `Retain` 정책에 따라 스택 삭제 후에도 남습니다. 버전 관리 버킷을 완전히 비우려면 객체의 모든 버전과 삭제 마커도 정리해야 합니다. SAM 패키지 버킷과 관리 스택은 다른 프로젝트의 사용 여부를 확인한 뒤 별도로 정리합니다.
+
+## 9. 향후 개발 계획
+
+1주차 설계의 데이터 준비 흐름인 S3 문서 수집 → Bedrock Knowledge Bases 텍스트 추출·분할 → Titan Text Embeddings V2 임베딩 → S3 Vectors 저장을 구현할 예정입니다.
+
+질문 처리에는 React·Amplify Hosting, API Gateway·Lambda, Knowledge Bases 검색과 Claude Sonnet 계열 모델을 연결할 계획입니다. 이후 출처 표시, 근거 부족 시 답변 제한, 단계별 실습 안내와 AWS 공식 아이콘을 사용하는 아키텍처 시각화를 추가합니다.

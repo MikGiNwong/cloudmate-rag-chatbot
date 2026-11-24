@@ -2,7 +2,7 @@
 
 작성일: 2026-11-25 (Asia/Seoul)
 
-현재 결과는 **로컬 구현·테스트·SAM 검증·빌드, AWS 실제 배포·HTTP 200·S3 저장·Lambda 코드 일치·CloudWatch 로그 및 GitHub 비공개 저장소 푸시 확인 완료**다. 사용자에게 AWS 로그인·배포와 GitHub 비공개 생성·푸시 승인을 받은 뒤 실행했다. 배포 결과를 기록한 커밋 `86fc9fe`가 원격 main과 일치함을 확인했고, 이 원격 확인 증거는 후속 문서 커밋으로 보존한다. 계정 번호와 사용자 ARN, 개인 경로, 토큰은 증거에서 제외했다.
+현재 결과는 **로컬 구현·테스트·SAM 검증·빌드, AWS 실제 배포·HTTP 200·S3 저장·Lambda 코드 일치·CloudWatch 로그 및 GitHub 저장소 푸시 확인 완료**다. 사용자에게 AWS 로그인·배포와 GitHub 비공개 생성·푸시 승인을 받은 뒤 실행했다. 배포 결과를 기록한 커밋 `86fc9fe`가 원격 main과 일치함을 확인했고, 이 원격 확인 증거는 후속 문서 커밋으로 보존한다. 계정 번호와 사용자 ARN, 개인 경로, 토큰은 증거에서 제외했다. 저장소는 최초 비공개로 생성했으며, 이후 제출 링크를 열람할 수 있도록 사용자가 공개로 전환했다. 2026-11-25 현재 공개 상태를 확인했다.
 
 ## 1. 실습 목적
 
@@ -116,9 +116,9 @@ SAM 1.174.0의 로컬 bootstrap 코드를 확인한 결과, SAM이 자동 준비
 - 이유: 원본 개인정보를 공개하지 않고 코드 및 IaC 변경을 추적하기 위해서다.
 - 실제 결과: 최초 구현 커밋 `1fe7d84`, 초기 증거 기록 커밋 `3eacc92`, 배포 검증 기록 커밋 `86fc9fe`를 생성했다. 전체 최초 해시는 `evidence/최초_커밋.txt`에 있다. 승인된 계정 MikGiNwong으로 GitHub CLI 웹 로그인을 완료했고 `cloudmate-rag-chatbot` 비공개 저장소를 생성해 origin으로 연결했다. 푸시 후 로컬과 원격 main이 `86fc9fec4f02f3079522f1a9c663c35728e6259b`로 일치하고 기본 브랜치가 main, isPrivate가 true인 것을 확인했다. [GitHub 원격 검증 증거](evidence/github_remote.json)를 후속 문서 커밋으로 보존한다.
 
-저장소 주소: https://github.com/MikGiNwong/cloudmate-rag-chatbot (비공개)
+저장소 주소: https://github.com/MikGiNwong/cloudmate-rag-chatbot (공개)
 
-공개 링크 제출이 필요하면 수업 담당자 접근 권한을 확인해야 한다. 저장소 공개 전환이나 협업자 추가는 이번 승인에 포함하지 않았다. 원본 DOCX는 비공개 저장소에도 올리지 않는다.
+수업 제출용으로 저장소 링크를 공유할 수 있도록 사용자가 공개로 전환했다. 현재 저장소는 공개 상태이며, 위 `isPrivate: true` 증거는 최초 배포·푸시 당시의 상태를 기록한 것이다. 원본 DOCX와 인증 정보는 공개 저장소에서 제외한다.
 
 ## 11. 문제 및 해결 과정
 
@@ -156,7 +156,7 @@ SAM 1.174.0의 로컬 bootstrap 코드를 확인한 결과, SAM이 자동 준비
 | 실제 S3 문서 | PUT/GET 200, 3,920바이트·SHA-256 일치 | [s3_transfer.json](evidence/s3_transfer.json) |
 | 실제 Lambda 코드 | Active/Successful, 코드 ZIP과 app.py 해시 일치 | [lambda_code_verification.json](evidence/lambda_code_verification.json) |
 | 실제 CloudWatch 로그 | 애플리케이션·START/END/REPORT 확인 | [cloudwatch_logs.txt](evidence/cloudwatch_logs.txt) |
-| GitHub 원격 저장소 | 비공개, main, 배포 기록 커밋의 로컬·원격 해시 일치 | [github_remote.json](evidence/github_remote.json) |
+| GitHub 원격 저장소 | 현재 공개, main. 최초 배포 커밋의 로컬·원격 해시 일치 기록 보관 | [github_remote.json](evidence/github_remote.json), 현재 저장소 링크 |
 
 다음 주에는 문서 수집·메타데이터 규칙, Knowledge Bases/S3 Vectors, 임베딩, 근거 충분성 기준과 출처 반환, React 화면, 실습 아키텍처 JSON/그래프 및 아이콘 뷰어를 순차 구현한다. 현재 Lambda에 후속 서비스 권한을 미리 추가하지 않았다.
 

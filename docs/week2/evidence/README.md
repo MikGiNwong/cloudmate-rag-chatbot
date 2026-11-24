@@ -22,8 +22,9 @@
 | aws_resource_verification.json | 실제 리소스 상태·S3 보안·IAM 정책·API 연결·로그 |
 | lambda_code_verification.json | 실제 Lambda ZIP 해시 및 app.py 원본 일치 |
 | cloudwatch_logs.txt | 실제 호출의 CloudWatch 로그 출력 |
+| github_remote.json | 비공개 저장소·기본 main·배포 기록 커밋의 로컬/원격 해시 일치 |
 
-사용자 승인 후 실제 클라우드 배포·HTTP 200·S3 저장·Lambda 코드 일치·CloudWatch 로그 확인과 비공개 GitHub 생성까지 완료했다. GitHub 최종 커밋·원격 일치는 푸시 후 추가한다. 계정 ID, 사용자 ARN의 식별 부분, 이름·학번·이메일·절대 경로·토큰은 제거한다. 원본은 `raw/`, 콘솔 이미지는 `screenshots/`에 두면 Git에서 제외된다. 공개할 자료는 검토한 익명화 텍스트만 추가한다. 임시 인증 URL과 인증 코드는 커밋하지 않는다.
+사용자 승인 후 실제 클라우드 배포·HTTP 200·S3 저장·Lambda 코드 일치·CloudWatch 로그 확인과 비공개 GitHub 생성·푸시까지 완료했다. 배포 결과 커밋 `86fc9fe`의 로컬/원격 일치를 확인했고 이 확인 증거는 후속 문서 커밋에 포함한다. 계정 ID, 사용자 ARN의 식별 부분, 이름·학번·이메일·절대 경로·토큰은 제거한다. 원본은 `raw/`, 콘솔 이미지는 `screenshots/`에 두면 Git에서 제외된다. 공개할 자료는 검토한 익명화 텍스트만 추가한다. 임시 인증 URL과 인증 코드는 커밋하지 않는다.
 
 ## 사용자가 직접 촬영할 콘솔 화면
 

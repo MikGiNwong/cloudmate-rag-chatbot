@@ -1,6 +1,6 @@
 {
   "secret_and_personal_data_scan": "passed",
-  "reviewed_files": 24,
+  "reviewed_files": 36,
   "findings": [],
   "reviewed_false_positive": [
     {
@@ -10,5 +10,6 @@
   ],
   "ignore_rules": "passed",
   "original_docx": "preserved and ignored",
-  "remote": "not configured; no push performed"
+  "remote": "https://github.com/MikGiNwong/cloudmate-rag-chatbot; private; main; deployment commit 86fc9fe pushed and verified",
+  "evidence_note": "Status after substantive deployment push; this status evidence is saved in a subsequent documentation commit."
 }

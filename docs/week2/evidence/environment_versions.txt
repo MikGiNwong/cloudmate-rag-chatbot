@@ -25,8 +25,8 @@ Initial Git repository: absent; local repository initialized on main
 AWS plugin STS: succeeded; account and ARN omitted
 Initial local AWS CLI STS: NoCredentials, exit 253; after approved browser login: succeeded; see aws_cli_auth.json
 GitHub plugin: authenticated; profile email omitted
-Local gh auth: not logged in, exit 1
+Initial local gh auth: not logged in, exit 1; approved web authentication later succeeded via OS keyring
 AWS CLI PKG signature: verified, Amazon team 94KV3E626L
 GitHub CLI SHA-256: verified against official release asset metadata and checksums
 Tools: .venv and .tools, installed after user approval
-Initial preparation had no remote writes. Approved AWS deployment is now in progress; see deployment evidence for final status.
+Initial preparation had no remote writes. Approved AWS deployment and private GitHub push are now complete; see live verification evidence.

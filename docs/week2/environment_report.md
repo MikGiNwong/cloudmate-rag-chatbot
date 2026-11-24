@@ -2,7 +2,7 @@
 
 작성일: 2026-11-25 (Asia/Seoul)
 
-현재 결과는 **로컬 구현·테스트·SAM 검증·빌드, AWS 실제 배포·HTTP 200·S3 저장·Lambda 코드 일치·CloudWatch 로그 확인 완료**다. 사용자에게 AWS 로그인·배포와 GitHub 비공개 생성·푸시 승인을 받았고 비공개 저장소를 생성했다. GitHub 최종 푸시 상태는 아래 증거와 로컬/원격 커밋 비교 결과를 기준으로 기록한다. 계정 번호와 사용자 ARN, 개인 경로, 토큰은 증거에서 제외했다.
+현재 결과는 **로컬 구현·테스트·SAM 검증·빌드, AWS 실제 배포·HTTP 200·S3 저장·Lambda 코드 일치·CloudWatch 로그 및 GitHub 비공개 저장소 푸시 확인 완료**다. 사용자에게 AWS 로그인·배포와 GitHub 비공개 생성·푸시 승인을 받은 뒤 실행했다. 배포 결과를 기록한 커밋 `86fc9fe`가 원격 main과 일치함을 확인했고, 이 원격 확인 증거는 후속 문서 커밋으로 보존한다. 계정 번호와 사용자 ARN, 개인 경로, 토큰은 증거에서 제외했다.
 
 ## 1. 실습 목적
 
@@ -114,7 +114,7 @@ SAM 1.174.0의 로컬 bootstrap 코드를 확인한 결과, SAM이 자동 준비
 
 - 수행: 빈 프로젝트에 `main` 로컬 Git 저장소를 초기화하고 `.gitignore`로 인증 파일·가상환경·빌드·도구·원본 DOCX·비공개 제출 자료를 제외했다. 공개 가능한 텍스트 증거와 구현 파일을 검토한다.
 - 이유: 원본 개인정보를 공개하지 않고 코드 및 IaC 변경을 추적하기 위해서다.
-- 실제 결과: 최초 구현 커밋 `1fe7d84`, 초기 증거 기록 커밋 `3eacc92`를 생성했다. 전체 최초 해시는 `evidence/최초_커밋.txt`에 있다. 승인된 계정 MikGiNwong으로 GitHub CLI 웹 로그인을 완료했고 `cloudmate-rag-chatbot` 비공개 저장소를 생성해 origin으로 연결했다. 최종 배포 보고서·증거는 후속 커밋에 포함하고 푸시 후 로컬과 원격 main의 해시 일치를 확인한다.
+- 실제 결과: 최초 구현 커밋 `1fe7d84`, 초기 증거 기록 커밋 `3eacc92`, 배포 검증 기록 커밋 `86fc9fe`를 생성했다. 전체 최초 해시는 `evidence/최초_커밋.txt`에 있다. 승인된 계정 MikGiNwong으로 GitHub CLI 웹 로그인을 완료했고 `cloudmate-rag-chatbot` 비공개 저장소를 생성해 origin으로 연결했다. 푸시 후 로컬과 원격 main이 `86fc9fec4f02f3079522f1a9c663c35728e6259b`로 일치하고 기본 브랜치가 main, isPrivate가 true인 것을 확인했다. [GitHub 원격 검증 증거](evidence/github_remote.json)를 후속 문서 커밋으로 보존한다.
 
 저장소 주소: https://github.com/MikGiNwong/cloudmate-rag-chatbot (비공개)
 
@@ -142,7 +142,7 @@ SAM 1.174.0의 로컬 bootstrap 코드를 확인한 결과, SAM이 자동 준비
 
 - 수행: 코드·IaC·설계 요약·FAQ·배포/정리 안내·실제 AWS 배포·익명화된 증거와 콘솔 촬영 목록을 작성했다.
 - 이유: 현재 완료 범위와 실제 클라우드 검증이 필요한 범위를 명확히 남기기 위해서다.
-- 실제 결과: 아래 로컬·클라우드 검증을 성공했다. 생성 모델 호출·실제 RAG 기능은 이번 주 범위 밖이다. GitHub 최종 원격 해시는 푸시 후 증거 파일에 기록한다.
+- 실제 결과: 아래 로컬·클라우드·GitHub 검증을 성공했다. 생성 모델 호출·실제 RAG 기능은 이번 주 범위 밖이다. GitHub 증거 파일은 배포 검증 커밋의 로컬·원격 일치를 기록하며, 해당 증거를 추가하는 문서 커밋이 뒤따른다.
 
 | 검증 | 실제 결과 | 근거 |
 |---|---|---|
@@ -156,7 +156,7 @@ SAM 1.174.0의 로컬 bootstrap 코드를 확인한 결과, SAM이 자동 준비
 | 실제 S3 문서 | PUT/GET 200, 3,920바이트·SHA-256 일치 | [s3_transfer.json](evidence/s3_transfer.json) |
 | 실제 Lambda 코드 | Active/Successful, 코드 ZIP과 app.py 해시 일치 | [lambda_code_verification.json](evidence/lambda_code_verification.json) |
 | 실제 CloudWatch 로그 | 애플리케이션·START/END/REPORT 확인 | [cloudwatch_logs.txt](evidence/cloudwatch_logs.txt) |
-| GitHub 원격 저장소 | 비공개 생성, 최종 원격 해시는 푸시 후 기록 | 저장소 URL 및 GitHub 증거 |
+| GitHub 원격 저장소 | 비공개, main, 배포 기록 커밋의 로컬·원격 해시 일치 | [github_remote.json](evidence/github_remote.json) |
 
 다음 주에는 문서 수집·메타데이터 규칙, Knowledge Bases/S3 Vectors, 임베딩, 근거 충분성 기준과 출처 반환, React 화면, 실습 아키텍처 JSON/그래프 및 아이콘 뷰어를 순차 구현한다. 현재 Lambda에 후속 서비스 권한을 미리 추가하지 않았다.
 
@@ -179,7 +179,7 @@ SAM 1.174.0의 로컬 bootstrap 코드를 확인한 결과, SAM이 자동 준비
 - [x] API Gateway 연결
 - [x] 실제 GET /health HTTP 200
 - [x] 실제 CloudWatch 로그
-- [ ] GitHub 저장소 및 원격 커밋 확인
+- [x] GitHub 저장소 및 원격 커밋 확인
 - [x] 환경 구성 보고서 초안
 - [x] 실제 로컬 증거 및 스크린샷 촬영 목록
 

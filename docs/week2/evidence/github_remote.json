@@ -1,0 +1,15 @@
+{
+  "checked_at_utc": "2026-11-24T17:12:42.640699+00:00",
+  "repository": {
+    "defaultBranchRef": {
+      "name": "main"
+    },
+    "isPrivate": true,
+    "nameWithOwner": "MikGiNwong/cloudmate-rag-chatbot",
+    "url": "https://github.com/MikGiNwong/cloudmate-rag-chatbot"
+  },
+  "verified_deployment_commit": "86fc9fec4f02f3079522f1a9c663c35728e6259b",
+  "remote_main_at_verification": "86fc9fec4f02f3079522f1a9c663c35728e6259b",
+  "local_and_remote_match": true,
+  "notes": "This records the substantive deployment commit. A later documentation commit records this evidence."
+}

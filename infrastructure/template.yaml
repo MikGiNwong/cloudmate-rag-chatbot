@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: CloudMate week 2 private source documents and public read-only health API
+Description: CloudMate private source documents and public read-only health API
 
 Resources:
   DocumentsBucket:
@@ -26,8 +26,6 @@ Resources:
       Tags:
         - Key: Project
           Value: CloudMate
-        - Key: Week
-          Value: '2'
         - Key: ManagedBy
           Value: AWS-SAM
 
@@ -41,12 +39,10 @@ Resources:
       Tags:
         - Key: Project
           Value: CloudMate
-        - Key: Week
-          Value: '2'
         - Key: ManagedBy
           Value: AWS-SAM
 
-  HealthExecutionRole:
+  HealthFunctionRole:
     Type: AWS::IAM::Role
     Properties:
       Description: CloudMate health function can write only to its existing log group
@@ -71,8 +67,6 @@ Resources:
       Tags:
         - Key: Project
           Value: CloudMate
-        - Key: Week
-          Value: '2'
         - Key: ManagedBy
           Value: AWS-SAM
 
@@ -80,21 +74,20 @@ Resources:
     Type: AWS::Serverless::HttpApi
     Properties:
       Name: !Sub '${AWS::StackName}-http-api'
-      Description: Public GET /health for week 2 verification
+      Description: Public read-only GET /health endpoint
       StageName: '$default'
       DefaultRouteSettings:
         ThrottlingBurstLimit: 5
         ThrottlingRateLimit: 2
       Tags:
         Project: CloudMate
-        Week: '2'
         ManagedBy: AWS-SAM
 
   HealthFunction:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: cloudmate-health-check
-      Description: CloudMate week 2 health check without S3 or Bedrock access
+      Description: CloudMate health check without S3 or Bedrock access
       Runtime: python3.13
       Architectures:
         - arm64
@@ -102,9 +95,9 @@ Resources:
       CodeUri: ../backend/health/
       MemorySize: 128
       Timeout: 3
-      Role: !GetAtt HealthExecutionRole.Arn
+      Role: !GetAtt HealthFunctionRole.Arn
       Events:
-        GetHealth:
+        HealthCheck:
           Type: HttpApi
           Properties:
             ApiId: !Ref HealthHttpApi
@@ -113,7 +106,6 @@ Resources:
             PayloadFormatVersion: '2.0'
       Tags:
         Project: CloudMate
-        Week: '2'
         ManagedBy: AWS-SAM
 
 Outputs:

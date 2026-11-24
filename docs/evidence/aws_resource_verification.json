@@ -1,0 +1,450 @@
+{
+  "region": "ap-northeast-2",
+  "checked_at_utc": "2026-11-24T17:48:50.892964+00:00",
+  "stack_resources": [
+    {
+      "LogicalResourceId": "DocumentsBucket",
+      "PhysicalResourceId": "cloudmate-docs-[AWS_ACCOUNT_ID]-ap-northeast-2",
+      "ResourceType": "AWS::S3::Bucket",
+      "LastUpdatedTimestamp": "2026-11-24T17:44:47.155000+00:00",
+      "ResourceStatus": "UPDATE_COMPLETE",
+      "DriftInformation": {
+        "StackResourceDriftStatus": "NOT_CHECKED"
+      }
+    },
+    {
+      "LogicalResourceId": "HealthFunction",
+      "PhysicalResourceId": "cloudmate-health-check",
+      "ResourceType": "AWS::Lambda::Function",
+      "LastUpdatedTimestamp": "2026-11-24T17:44:59.081000+00:00",
+      "ResourceStatus": "UPDATE_COMPLETE",
+      "DriftInformation": {
+        "StackResourceDriftStatus": "NOT_CHECKED"
+      }
+    },
+    {
+      "LogicalResourceId": "HealthFunctionHealthCheckPermission",
+      "PhysicalResourceId": "cloudmate-HealthFunctionHealthCheckPermission-CoXhppMVVZuO",
+      "ResourceType": "AWS::Lambda::Permission",
+      "LastUpdatedTimestamp": "2026-11-24T17:45:05.669000+00:00",
+      "ResourceStatus": "CREATE_COMPLETE",
+      "DriftInformation": {
+        "StackResourceDriftStatus": "NOT_CHECKED"
+      }
+    },
+    {
+      "LogicalResourceId": "HealthFunctionRole",
+      "PhysicalResourceId": "cloudmate-HealthFunctionRole-T44As7YN4VVy",
+      "ResourceType": "AWS::IAM::Role",
+      "LastUpdatedTimestamp": "2026-11-24T17:44:43.939000+00:00",
+      "ResourceStatus": "CREATE_COMPLETE",
+      "DriftInformation": {
+        "StackResourceDriftStatus": "NOT_CHECKED"
+      }
+    },
+    {
+      "LogicalResourceId": "HealthHttpApi",
+      "PhysicalResourceId": "b1prf542b3",
+      "ResourceType": "AWS::ApiGatewayV2::Api",
+      "LastUpdatedTimestamp": "2026-11-24T17:45:03.773000+00:00",
+      "ResourceStatus": "UPDATE_COMPLETE",
+      "DriftInformation": {
+        "StackResourceDriftStatus": "NOT_CHECKED"
+      }
+    },
+    {
+      "LogicalResourceId": "HealthHttpApiApiGatewayDefaultStage",
+      "PhysicalResourceId": "$default",
+      "ResourceType": "AWS::ApiGatewayV2::Stage",
+      "LastUpdatedTimestamp": "2026-11-24T17:45:06.008000+00:00",
+      "ResourceStatus": "UPDATE_COMPLETE",
+      "DriftInformation": {
+        "StackResourceDriftStatus": "NOT_CHECKED"
+      }
+    },
+    {
+      "LogicalResourceId": "HealthLogGroup",
+      "PhysicalResourceId": "/aws/lambda/cloudmate-health-check",
+      "ResourceType": "AWS::Logs::LogGroup",
+      "LastUpdatedTimestamp": "2026-11-24T17:44:25.209000+00:00",
+      "ResourceStatus": "UPDATE_COMPLETE",
+      "DriftInformation": {
+        "StackResourceDriftStatus": "NOT_CHECKED"
+      }
+    }
+  ],
+  "stack": {
+    "Stacks": [
+      {
+        "StackId": "arn:aws:cloudformation:ap-northeast-2:[AWS_ACCOUNT_ID]:stack/cloudmate/1178b8e0-e82e-11f1-b5cf-0affe42f1397",
+        "StackName": "cloudmate",
+        "ChangeSetId": "arn:aws:cloudformation:ap-northeast-2:[AWS_ACCOUNT_ID]:changeSet/samcli-deploy1795542206/610fdc5a-7656-44e1-b640-f64d89bb1c5b",
+        "Description": "CloudMate private source documents and public read-only health API",
+        "CreationTime": "2026-11-24T17:40:51.666000+00:00",
+        "LastUpdatedTime": "2026-11-24T17:44:21.852000+00:00",
+        "RollbackConfiguration": {},
+        "StackStatus": "UPDATE_COMPLETE",
+        "DisableRollback": false,
+        "DeploymentConfig": {
+          "Mode": "STANDARD",
+          "DisableRollback": false
+        },
+        "NotificationARNs": [],
+        "Capabilities": [
+          "CAPABILITY_IAM"
+        ],
+        "Outputs": [
+          {
+            "OutputKey": "HealthFunctionName",
+            "OutputValue": "cloudmate-health-check",
+            "Description": "Health Lambda function name"
+          },
+          {
+            "OutputKey": "DocumentsBucketName",
+            "OutputValue": "cloudmate-docs-[AWS_ACCOUNT_ID]-ap-northeast-2",
+            "Description": "Private source document bucket; redact the account portion before publishing"
+          },
+          {
+            "OutputKey": "DocumentsPrefix",
+            "OutputValue": "documents/",
+            "Description": "Prefix reserved for future Knowledge Bases source documents"
+          },
+          {
+            "OutputKey": "HealthApiUrl",
+            "OutputValue": "https://b1prf542b3.execute-api.ap-northeast-2.amazonaws.com/health",
+            "Description": "Public HTTPS endpoint for GET /health"
+          },
+          {
+            "OutputKey": "HealthLogGroupName",
+            "OutputValue": "/aws/lambda/cloudmate-health-check",
+            "Description": "Log group with seven-day retention"
+          }
+        ],
+        "Tags": [
+          {
+            "Key": "Project",
+            "Value": "CloudMate"
+          },
+          {
+            "Key": "ManagedBy",
+            "Value": "AWS-SAM"
+          }
+        ],
+        "EnableTerminationProtection": false,
+        "DriftInformation": {
+          "StackDriftStatus": "NOT_CHECKED"
+        },
+        "LastOperations": [
+          {
+            "OperationType": "UPDATE_STACK",
+            "OperationId": "92ed4318-bdbe-4d3a-bac6-1b115369ba1d"
+          }
+        ]
+      }
+    ]
+  },
+  "lambda": {
+    "FunctionName": "cloudmate-health-check",
+    "Runtime": "python3.13",
+    "Role": "arn:aws:iam::[AWS_ACCOUNT_ID]:role/cloudmate-HealthFunctionRole-T44As7YN4VVy",
+    "Handler": "app.lambda_handler",
+    "CodeSize": 1078,
+    "CodeSha256": "8NN4vgFf5FGZZTIcnpTQKWBMYyaNKLB+T426UzusBkk=",
+    "State": "Active",
+    "LastUpdateStatus": "Successful",
+    "Architectures": [
+      "arm64"
+    ],
+    "MemorySize": 128,
+    "Timeout": 3,
+    "LoggingConfig": {
+      "LogFormat": "Text",
+      "LogGroup": "/aws/lambda/cloudmate-health-check"
+    },
+    "Description": "CloudMate health check without S3 or Bedrock access",
+    "tags": {
+      "Project": "CloudMate",
+      "aws:cloudformation:stack-name": "cloudmate",
+      "lambda:createdBy": "SAM",
+      "ManagedBy": "AWS-SAM",
+      "aws:cloudformation:stack-id": "arn:aws:cloudformation:ap-northeast-2:[AWS_ACCOUNT_ID]:stack/cloudmate/1178b8e0-e82e-11f1-b5cf-0affe42f1397",
+      "aws:cloudformation:logical-id": "HealthFunction"
+    }
+  },
+  "lambda_policy": {
+    "Policy": "{\"Version\":\"2012-10-17\",\"Id\":\"default\",\"Statement\":[{\"Sid\":\"cloudmate-HealthFunctionHealthCheckPermission-CoXhppMVVZuO\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"apigateway.amazonaws.com\"},\"Action\":\"lambda:InvokeFunction\",\"Resource\":\"arn:aws:lambda:ap-northeast-2:[AWS_ACCOUNT_ID]:function:cloudmate-health-check\",\"Condition\":{\"ArnLike\":{\"AWS:SourceArn\":\"arn:aws:execute-api:ap-northeast-2:[AWS_ACCOUNT_ID]:b1prf542b3/*/GET/health\"}}}]}",
+    "RevisionId": "7f99da44-ca5b-4bdd-a75f-39428eabb678"
+  },
+  "s3_object": {
+    "AcceptRanges": "bytes",
+    "LastModified": "2026-11-24T17:07:20+00:00",
+    "ContentLength": 3920,
+    "ETag": "\"2269f06dd76ae51fcf315da0fcb43bee\"",
+    "VersionId": "orn71qyHMH6cVeo2w8oTUxef2bRTDbbh",
+    "ContentType": "text/plain; charset=utf-8",
+    "ServerSideEncryption": "AES256",
+    "Metadata": {}
+  },
+  "s3_tags": {
+    "TagSet": [
+      {
+        "Key": "Project",
+        "Value": "CloudMate"
+      },
+      {
+        "Key": "aws:cloudformation:stack-name",
+        "Value": "cloudmate"
+      },
+      {
+        "Key": "aws:cloudformation:logical-id",
+        "Value": "DocumentsBucket"
+      },
+      {
+        "Key": "ManagedBy",
+        "Value": "AWS-SAM"
+      },
+      {
+        "Key": "aws:cloudformation:stack-id",
+        "Value": "arn:aws:cloudformation:ap-northeast-2:[AWS_ACCOUNT_ID]:stack/cloudmate/1178b8e0-e82e-11f1-b5cf-0affe42f1397"
+      }
+    ]
+  },
+  "s3_public_access": {
+    "PublicAccessBlockConfiguration": {
+      "BlockPublicAcls": true,
+      "IgnorePublicAcls": true,
+      "BlockPublicPolicy": true,
+      "RestrictPublicBuckets": true
+    }
+  },
+  "s3_encryption": {
+    "ServerSideEncryptionConfiguration": {
+      "Rules": [
+        {
+          "ApplyServerSideEncryptionByDefault": {
+            "SSEAlgorithm": "AES256"
+          },
+          "BucketKeyEnabled": false,
+          "BlockedEncryptionTypes": {
+            "EncryptionType": [
+              "SSE-C"
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "s3_ownership": {
+    "OwnershipControls": {
+      "Rules": [
+        {
+          "ObjectOwnership": "BucketOwnerEnforced"
+        }
+      ]
+    }
+  },
+  "s3_versioning": {
+    "Status": "Enabled"
+  },
+  "api": {
+    "ApiEndpoint": "https://b1prf542b3.execute-api.ap-northeast-2.amazonaws.com",
+    "ApiId": "b1prf542b3",
+    "ApiKeySelectionExpression": "$request.header.x-api-key",
+    "CreatedDate": "2026-11-24T17:04:46+00:00",
+    "Description": "Public read-only GET /health endpoint",
+    "DisableExecuteApiEndpoint": false,
+    "IpAddressType": "ipv4",
+    "Name": "cloudmate-http-api",
+    "ProtocolType": "HTTP",
+    "RouteSelectionExpression": "$request.method $request.path",
+    "Tags": {
+      "Project": "CloudMate",
+      "aws:cloudformation:stack-name": "cloudmate",
+      "aws:cloudformation:logical-id": "HealthHttpApi",
+      "ManagedBy": "AWS-SAM",
+      "aws:cloudformation:stack-id": "arn:aws:cloudformation:ap-northeast-2:[AWS_ACCOUNT_ID]:stack/cloudmate/1178b8e0-e82e-11f1-b5cf-0affe42f1397",
+      "httpapi:createdBy": "SAM"
+    },
+    "Version": "1.0"
+  },
+  "routes": {
+    "Items": [
+      {
+        "ApiKeyRequired": false,
+        "AuthorizationType": "NONE",
+        "RequestParameters": {},
+        "RouteId": "qtsoc5o",
+        "RouteKey": "GET /health",
+        "Target": "integrations/i1q69s3"
+      }
+    ]
+  },
+  "integrations": {
+    "Items": [
+      {
+        "ConnectionType": "INTERNET",
+        "IntegrationId": "i1q69s3",
+        "IntegrationMethod": "POST",
+        "IntegrationType": "AWS_PROXY",
+        "IntegrationUri": "arn:aws:apigateway:ap-northeast-2:lambda:path/2015-03-31/functions/arn:aws:lambda:ap-northeast-2:[AWS_ACCOUNT_ID]:function:cloudmate-health-check/invocations",
+        "PayloadFormatVersion": "2.0",
+        "TimeoutInMillis": 30000
+      }
+    ]
+  },
+  "stages": {
+    "Items": [
+      {
+        "AutoDeploy": true,
+        "CreatedDate": "2026-11-24T17:04:48+00:00",
+        "DefaultRouteSettings": {
+          "DetailedMetricsEnabled": false,
+          "ThrottlingBurstLimit": 5,
+          "ThrottlingRateLimit": 2
+        },
+        "DeploymentId": "tssmmr",
+        "LastDeploymentStatusMessage": "Successfully deployed stage with deployment ID 'tssmmr'",
+        "LastUpdatedDate": "2026-11-24T17:45:05+00:00",
+        "RouteSettings": {},
+        "StageName": "$default",
+        "StageVariables": {},
+        "Tags": {
+          "Project": "CloudMate",
+          "aws:cloudformation:stack-name": "cloudmate",
+          "aws:cloudformation:logical-id": "HealthHttpApiApiGatewayDefaultStage",
+          "ManagedBy": "AWS-SAM",
+          "aws:cloudformation:stack-id": "arn:aws:cloudformation:ap-northeast-2:[AWS_ACCOUNT_ID]:stack/cloudmate/1178b8e0-e82e-11f1-b5cf-0affe42f1397",
+          "httpapi:createdBy": "SAM"
+        }
+      }
+    ]
+  },
+  "log_group": {
+    "logGroups": [
+      {
+        "logGroupName": "/aws/lambda/cloudmate-health-check",
+        "creationTime": 1795539846122,
+        "retentionInDays": 7,
+        "metricFilterCount": 0,
+        "arn": "arn:aws:logs:ap-northeast-2:[AWS_ACCOUNT_ID]:log-group:/aws/lambda/cloudmate-health-check:*",
+        "storedBytes": 0,
+        "logGroupClass": "STANDARD",
+        "logGroupArn": "arn:aws:logs:ap-northeast-2:[AWS_ACCOUNT_ID]:log-group:/aws/lambda/cloudmate-health-check",
+        "deletionProtectionEnabled": false,
+        "bearerTokenAuthenticationEnabled": false
+      }
+    ]
+  },
+  "logs": {
+    "events": [
+      {
+        "logStreamName": "2026/11/24/[$LATEST]bf81c1905805404ca09db393a8427653",
+        "timestamp": 1795542414710,
+        "message": "INIT_START Runtime Version: python:3.13.mainlinev2.v86\tRuntime Version ARN: arn:aws:lambda:ap-northeast-2::runtime:41f88f18c15dcc5ab2dff3d50fd78f22bfe112ea0192d989c2dc0088af6a699d\n",
+        "ingestionTime": 1795542418791,
+        "eventId": "40041933883602113421604727275275250675921806778386481152"
+      },
+      {
+        "logStreamName": "2026/11/24/[$LATEST]bf81c1905805404ca09db393a8427653",
+        "timestamp": 1795542414801,
+        "message": "START RequestId: 3a27b876-b5dc-418d-af32-ae36f8f331e9 Version: $LATEST\n",
+        "ingestionTime": 1795542418791,
+        "eventId": "40041933885631481234671013981155001038732807675430699009"
+      },
+      {
+        "logStreamName": "2026/11/24/[$LATEST]bf81c1905805404ca09db393a8427653",
+        "timestamp": 1795542414802,
+        "message": "[INFO]\t2026-11-24T17:46:54.801Z\t3a27b876-b5dc-418d-af32-ae36f8f331e9\thealth_check status=ok\n",
+        "ingestionTime": 1795542418791,
+        "eventId": "40041933885653781979869544604296536757005456036936679426"
+      },
+      {
+        "logStreamName": "2026/11/24/[$LATEST]bf81c1905805404ca09db393a8427653",
+        "timestamp": 1795542414815,
+        "message": "END RequestId: 3a27b876-b5dc-418d-af32-ae36f8f331e9\n",
+        "ingestionTime": 1795542418791,
+        "eventId": "40041933885943691667450442705136501094549884736514424835"
+      },
+      {
+        "logStreamName": "2026/11/24/[$LATEST]bf81c1905805404ca09db393a8427653",
+        "timestamp": 1795542414815,
+        "message": "REPORT RequestId: 3a27b876-b5dc-418d-af32-ae36f8f331e9\tDuration: 2.50 ms\tBilled Duration: 90 ms\tMemory Size: 128 MB\tMax Memory Used: 31 MB\tInit Duration: 87.30 ms\t\n",
+        "ingestionTime": 1795542418791,
+        "eventId": "40041933885943691667450442705136501094549884736514424836"
+      }
+    ],
+    "searchedLogStreams": []
+  },
+  "role": {
+    "Role": {
+      "Path": "/",
+      "RoleName": "cloudmate-HealthFunctionRole-T44As7YN4VVy",
+      "RoleId": "AROAS5WW2MSQKYAURG56T",
+      "Arn": "arn:aws:iam::[AWS_ACCOUNT_ID]:role/cloudmate-HealthFunctionRole-T44As7YN4VVy",
+      "CreateDate": "2026-11-24T17:44:26+00:00",
+      "AssumeRolePolicyDocument": {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Principal": {
+              "Service": "lambda.amazonaws.com"
+            },
+            "Action": "sts:AssumeRole"
+          }
+        ]
+      },
+      "Description": "CloudMate health function can write only to its existing log group",
+      "MaxSessionDuration": 3600,
+      "MaxSigninSessionDuration": 3600,
+      "Tags": [
+        {
+          "Key": "Project",
+          "Value": "CloudMate"
+        },
+        {
+          "Key": "ManagedBy",
+          "Value": "AWS-SAM"
+        }
+      ],
+      "RoleLastUsed": {}
+    }
+  },
+  "role_policy": {
+    "RoleName": "cloudmate-HealthFunctionRole-T44As7YN4VVy",
+    "PolicyName": "WriteHealthLogs",
+    "PolicyDocument": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Action": [
+            "logs:CreateLogStream",
+            "logs:PutLogEvents"
+          ],
+          "Resource": "arn:aws:logs:ap-northeast-2:[AWS_ACCOUNT_ID]:log-group:/aws/lambda/cloudmate-health-check:*",
+          "Effect": "Allow",
+          "Sid": "WriteOwnLogStreams"
+        }
+      ]
+    }
+  },
+  "role_managed_policies": {
+    "AttachedPolicies": []
+  },
+  "remaining_week_named_roles": [],
+  "active_cloudmate_stacks": [
+    {
+      "name": "cloudmate",
+      "status": "UPDATE_COMPLETE"
+    }
+  ],
+  "log_tags": {
+    "tags": {
+      "Project": "CloudMate",
+      "aws:cloudformation:stack-name": "cloudmate",
+      "ManagedBy": "AWS-SAM",
+      "aws:cloudformation:stack-id": "arn:aws:cloudformation:ap-northeast-2:[AWS_ACCOUNT_ID]:stack/cloudmate/1178b8e0-e82e-11f1-b5cf-0affe42f1397",
+      "aws:cloudformation:logical-id": "HealthLogGroup"
+    }
+  }
+}

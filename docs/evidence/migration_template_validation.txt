@@ -1,0 +1,3 @@
+$ .venv/bin/cfn-lint --template .tools/private/migration/retention.json
+
+exit_code=0

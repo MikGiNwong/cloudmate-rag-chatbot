@@ -1,0 +1,32 @@
+{
+  "checked_at_utc": "2026-11-24T17:48:50.892964+00:00",
+  "source_stack": "cloudmate-week2",
+  "source_stack_status": "DELETE_COMPLETE",
+  "target_stack": "cloudmate",
+  "target_stack_status": "UPDATE_COMPLETE",
+  "method": "Retain all seven resources, delete the source stack, import into the permanent stack, deploy the SAM update, remove retained obsolete role and permission",
+  "imported_resource_count": 7,
+  "core_resource_ids_preserved": {
+    "documents_bucket": true,
+    "lambda": true,
+    "http_api": true,
+    "log_group": true
+  },
+  "api_name": "cloudmate-http-api",
+  "api_endpoint_preserved": true,
+  "api_url": "https://b1prf542b3.execute-api.ap-northeast-2.amazonaws.com/health",
+  "s3_document_version_preserved": true,
+  "previous_role_deleted": true,
+  "previous_permission_removed": true,
+  "active_cloudmate_stacks": [
+    {
+      "name": "cloudmate",
+      "status": "UPDATE_COMPLETE"
+    }
+  ],
+  "week_marker_in_active_resource_names": false,
+  "week_marker_in_tags": false,
+  "deployment_issues_resolved": [
+    "Import-only operation required removing Outputs and stack tag changes; the normal SAM update subsequently applied both."
+  ]
+}

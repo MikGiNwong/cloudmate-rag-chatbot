@@ -44,3 +44,7 @@ docs/week2/evidence/raw/
 docs/week2/evidence/screenshots/
 *.log
 samconfig.local.toml
+
+# Current project evidence keeps raw identifiers and screenshots local.
+docs/evidence/raw/
+docs/evidence/screenshots/

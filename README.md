@@ -1,8 +1,8 @@
 # CloudMate — AWS 학습 지원 RAG 챗봇
 
-CloudMate는 클라우드 아키텍처 수업에서 개발하는 AWS 학습 지원 챗봇 프로젝트입니다. AWS 공식 기술 문서, 공개 실습 가이드, 자체 작성 FAQ를 검색하여 질문에 대한 답변과 근거 자료를 제공하는 것을 목표로 합니다. AWS를 처음 배우는 학생과 실습 중인 개발자를 주요 대상으로 합니다.
+CloudMate는 클라우드 아키텍처 수업의 텀프로젝트로 개발하는 AWS 학습 지원 챗봇입니다. AWS 공식 기술 문서, 공개 실습 가이드, 자체 작성 FAQ를 검색하여 질문에 대한 답변과 근거 자료를 제공하는 것을 목표로 합니다. AWS를 처음 배우는 학생과 실습 중인 개발자를 주요 대상으로 합니다.
 
-**2주차에는 AWS 실행 환경과 개발 환경을 구성하고, 상태 확인 API를 실제 AWS에 배포하여 동작을 검증했습니다.** 문서 검색·임베딩·생성 모델 호출과 웹 채팅 화면은 이후 주차의 구현 범위입니다.
+**현재 AWS 실행 환경과 개발 환경을 구성하고, 상태 확인 API를 실제 AWS에 배포한 상태입니다. 리소스는 텀프로젝트 전반에 사용하는 주차 없는 이름으로 관리합니다.** 문서 검색·임베딩·생성 모델 호출과 웹 채팅 화면은 후속 개발 범위입니다.
 
 | 항목 | 내용 |
 |---|---|
@@ -11,7 +11,7 @@ CloudMate는 클라우드 아키텍처 수업에서 개발하는 AWS 학습 지�
 | 상태 확인 API | [GET /health](https://b1prf542b3.execute-api.ap-northeast-2.amazonaws.com/health) |
 | 검증 기준일 | 2026년 11월 25일 |
 | 설계 문서 | [1주차 설계 요약](docs/week1/design_summary.md) |
-| 실습 보고서 | [2주차 환경 구성 보고서](docs/week2/environment_report.md) |
+| 실습 보고서 | [환경 구성 보고서](docs/environment_report.md) |
 
 ## 1. 서비스 개발 목표
 
@@ -23,19 +23,19 @@ CloudMate는 클라우드 아키텍처 수업에서 개발하는 AWS 학습 지�
 - 필요한 AWS 서비스와 연결 관계를 추출하고, AWS 공식 아이콘을 활용해 실습 아키텍처를 시각화합니다.
 - 관련 자료가 부족하면 근거가 부족하다는 안내를 제공합니다.
 
-## 2. 2주차 구현 및 검증 결과
+## 2. 구현 및 검증 결과
 
 | 과제 항목 | 구현 내용 | 확인 결과 |
 |---|---|---|
 | 개발 환경 | Python 3.13, AWS CLI, SAM CLI, Git, GitHub CLI 구성 | 환경 확인 및 인증 완료 |
-| 인프라 관리 | SAM·CloudFormation으로 리소스 정의 및 배포 | 스택 `CREATE_COMPLETE` |
+| 인프라 관리 | SAM·CloudFormation으로 리소스 정의 및 배포 | `cloudmate` 스택 `UPDATE_COMPLETE` |
 | 테스트 API | Lambda와 HTTP API의 `GET /health` 연결 | 실제 HTTP 200 및 응답 JSON 일치 |
 | 문서 저장 | 자체 작성 AWS FAQ를 S3의 `documents/aws-faq.txt`에 저장 | 업로드·다운로드 성공, 원본과 SHA-256 일치 |
 | 접근 권한 | 비공개 S3와 함수 전용 IAM 실행 역할 구성 | 버킷 보안 설정·실제 정책 확인 |
 | 모니터링 | CloudWatch Logs에 함수 실행 로그 기록 | 실제 호출 로그 및 7일 보존 설정 확인 |
 | 소스 관리 | Git 커밋 및 GitHub 원격 저장소 연동 | 커밋 푸시와 로컬·원격 해시 일치 확인 |
 
-단위 테스트 10개, Python 문법 검사, SAM 템플릿 검증과 빌드를 통과했습니다. 실행 결과는 [검증 증거 목록](docs/week2/evidence/README.md)에서 확인할 수 있습니다. 표의 결과는 검증 기준일에 수행한 실습을 기준으로 합니다.
+단위 테스트 10개, Python 문법 검사, SAM 템플릿 검증과 빌드를 통과했습니다. 실행 결과는 [검증 증거 목록](docs/evidence/README.md)에서 확인할 수 있습니다. 표의 결과는 검증 기준일에 수행한 실습을 기준으로 합니다.
 
 ## 3. 현재 시스템 구성
 
@@ -58,7 +58,7 @@ flowchart LR
 | 접근 제어 및 로그 | AWS IAM, Amazon CloudWatch |
 | 개발 및 소스 관리 | VS Code, Codex, Git, GitHub |
 
-세부 리소스 설정은 [인프라 구성 설명](infrastructure/README.md)과 [SAM 템플릿](infrastructure/template.yaml)에 정리했습니다.
+리소스 이름과 태그에는 주차 번호를 사용하지 않습니다. 세부 리소스 설정은 [인프라 구성 설명](infrastructure/README.md)과 [SAM 템플릿](infrastructure/template.yaml)에 정리했습니다.
 
 ## 4. 상태 확인 API
 
@@ -72,8 +72,7 @@ GET https://b1prf542b3.execute-api.ap-northeast-2.amazonaws.com/health
 {
   "status": "ok",
   "service": "CloudMate",
-  "message": "AWS Lambda is working",
-  "week": 2
+  "message": "AWS Lambda is working"
 }
 ```
 
@@ -83,7 +82,7 @@ GET https://b1prf542b3.execute-api.ap-northeast-2.amazonaws.com/health
 curl -i https://b1prf542b3.execute-api.ap-northeast-2.amazonaws.com/health
 ```
 
-[실제 HTTP 응답 기록](docs/week2/evidence/api_http.json)에 검증 시각과 결과를 보관했습니다. 실습 환경 정리 후에는 해당 주소의 서비스가 종료될 수 있습니다.
+[실제 HTTP 응답 기록](docs/evidence/api_http.json)에 검증 시각과 결과를 보관했습니다. 실습 환경 정리 후에는 해당 주소의 서비스가 종료될 수 있습니다.
 
 ## 5. 프로젝트 구조
 
@@ -100,9 +99,9 @@ cloudmate-rag-chatbot/
 │   └── README.md               # 리소스 구성 및 배포 설명
 ├── docs/
 │   ├── week1/design_summary.md # 개인정보를 제외한 1주차 설계 요약
-│   └── week2/
-│       ├── environment_report.md
-│       └── evidence/           # 식별 정보를 제거한 실행 증거
+│   ├── environment_report.md  # 현재 환경 구성 보고서
+│   ├── submission_guide.md    # 제출 자료·화면 촬영 안내
+│   └── evidence/              # 현재 구성의 실제 검증 증거
 ├── scripts/verify_api.py       # 실제 HTTP 응답 검증
 ├── requirements-dev.txt        # SAM CLI 등 개발 도구 의존성
 ├── samconfig.toml              # 리전·스택·배포 설정
@@ -145,7 +144,7 @@ export SSL_CERT_FILE="$(python -m certifi)"
 
 ## 7. AWS 배포 방법
 
-루트의 `samconfig.toml`에 리전 `ap-northeast-2`, 스택 `cloudmate-week2`, IAM 리소스 생성 설정과 변경 세트 확인 옵션을 보존했습니다. AWS 프로파일 인증을 완료한 후 프로젝트 루트에서 실행합니다.
+루트의 `samconfig.toml`에 리전 `ap-northeast-2`, 스택 `cloudmate`, IAM 리소스 생성 설정과 변경 세트 확인 옵션을 보존했습니다. AWS 프로파일 인증을 완료한 후 프로젝트 루트에서 실행합니다.
 
 ```sh
 source .venv/bin/activate
@@ -155,12 +154,12 @@ sam build
 sam deploy
 ```
 
-배포 시 문서용 S3 버킷, Lambda 함수, HTTP API, IAM 실행 역할과 로그 그룹을 생성합니다. SAM은 별도 관리 스택과 S3 버킷에 배포 패키지를 저장합니다. 변경 세트를 검토한 후 배포하며, 함수 이름 `cloudmate-health-check`는 같은 계정·리전에서 중복 사용할 수 없습니다.
+배포 시 문서용 S3 버킷, Lambda 함수, HTTP API, IAM 실행 역할과 로그 그룹을 생성합니다. SAM은 별도 관리 스택과 S3 버킷에 배포 패키지를 저장합니다. 변경 세트를 검토한 후 배포하며, 스택은 `cloudmate`, API는 `cloudmate-http-api`라는 이름을 사용합니다. 함수 이름 `cloudmate-health-check`는 같은 계정·리전에서 중복 사용할 수 없습니다.
 
 배포 완료 후 CloudFormation 출력의 `HealthApiUrl`로 API를 검증합니다. 테스트 문서는 출력의 `DocumentsBucketName`을 사용해 업로드합니다.
 
 ```sh
-CLOUDMATE_BUCKET="$(aws cloudformation describe-stacks --stack-name cloudmate-week2 --region ap-northeast-2 --query 'Stacks[0].Outputs[?OutputKey==`DocumentsBucketName`].OutputValue | [0]' --output text)"
+CLOUDMATE_BUCKET="$(aws cloudformation describe-stacks --stack-name cloudmate --region ap-northeast-2 --query 'Stacks[0].Outputs[?OutputKey==`DocumentsBucketName`].OutputValue | [0]' --output text)"
 aws s3 cp data/aws-faq.txt "s3://$CLOUDMATE_BUCKET/documents/aws-faq.txt" --content-type 'text/plain; charset=utf-8' --region ap-northeast-2
 aws s3api head-object --bucket "$CLOUDMATE_BUCKET" --key documents/aws-faq.txt --region ap-northeast-2
 ```
@@ -174,8 +173,8 @@ API 요청, 함수 실행, S3 저장·요청, 로그 보관과 패키지 버킷�
 실습 종료 후에는 보관할 문서와 로그를 확인하고 스택을 정리합니다. 아래 명령은 배포 리소스를 삭제하므로 환경 정리를 결정한 경우에만 실행합니다.
 
 ```sh
-aws cloudformation delete-stack --stack-name cloudmate-week2 --region ap-northeast-2
-aws cloudformation wait stack-delete-complete --stack-name cloudmate-week2 --region ap-northeast-2
+aws cloudformation delete-stack --stack-name cloudmate --region ap-northeast-2
+aws cloudformation wait stack-delete-complete --stack-name cloudmate --region ap-northeast-2
 ```
 
 문서 버킷과 로그 그룹은 `Retain` 정책에 따라 스택 삭제 후에도 남습니다. 버전 관리 버킷을 완전히 비우려면 객체의 모든 버전과 삭제 마커도 정리해야 합니다. SAM 패키지 버킷과 관리 스택은 다른 프로젝트의 사용 여부를 확인한 뒤 별도로 정리합니다.
@@ -185,3 +184,5 @@ aws cloudformation wait stack-delete-complete --stack-name cloudmate-week2 --reg
 1주차 설계의 데이터 준비 흐름인 S3 문서 수집 → Bedrock Knowledge Bases 텍스트 추출·분할 → Titan Text Embeddings V2 임베딩 → S3 Vectors 저장을 구현할 예정입니다.
 
 질문 처리에는 React·Amplify Hosting, API Gateway·Lambda, Knowledge Bases 검색과 Claude Sonnet 계열 모델을 연결할 계획입니다. 이후 출처 표시, 근거 부족 시 답변 제한, 단계별 실습 안내와 AWS 공식 아이콘을 사용하는 아키텍처 시각화를 추가합니다.
+
+환경 구성 보고서에 필요한 AWS 서비스, 개발 환경, 저장소 주소와 기본 실행 확인 화면의 준비 방법은 [제출 안내](docs/submission_guide.md)에 정리했습니다.

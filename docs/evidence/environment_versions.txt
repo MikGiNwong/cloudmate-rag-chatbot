@@ -1,0 +1,21 @@
+Checked at 2026-11-25T02:38:31.831511+09:00
+Project path: [PROJECT]
+OS: macOS-27.2.1-arm64-arm-64bit-Mach-O
+CPU: arm64
+$ python3 --version
+Python 3.13.17
+$ git --version
+git version 2.54.0 (Apple Git-157)
+$ .tools/bin/aws --version
+aws-cli/2.42.2 Python/3.14.10 Darwin/27.2.0 script-exe/arm64
+$ .venv/bin/sam --version
+SAM CLI, version 1.174.0
+$ .tools/bin/gh --version
+gh version 2.105.0 (2026-11-17)
+https://github.com/cli/cli/releases/tag/v2.105.0
+AWS region: ap-northeast-2
+AWS CLI profile: cloudmate (short-term console login)
+Python virtual environment: .venv
+VS Code: installed; code shell command not on PATH
+Lambda runtime dependencies: Python standard library only
+Local execution and build checks: see unit_tests.txt, syntax_check.txt, sam_validation.txt and sam_build.txt

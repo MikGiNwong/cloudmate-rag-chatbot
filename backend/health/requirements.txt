@@ -1,1 +1,1 @@
-# No third-party runtime dependencies for the week 2 health endpoint.
+# No third-party runtime dependencies for the health endpoint.

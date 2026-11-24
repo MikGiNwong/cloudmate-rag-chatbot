@@ -1,4 +1,4 @@
-"""CloudMate week 2 health endpoint for API Gateway HTTP API payload v2."""
+"""CloudMate health endpoint for API Gateway HTTP API payload v2."""
 
 import json
 import logging
@@ -8,13 +8,12 @@ LOGGER = logging.getLogger(__name__)
 LOGGER.setLevel(logging.INFO)
 
 
-def health_payload() -> dict[str, str | int]:
+def health_payload() -> dict[str, str]:
     """Return the public response contract without accessing AWS services."""
     return {
         "status": "ok",
         "service": "CloudMate",
         "message": "AWS Lambda is working",
-        "week": 2,
     }
 
 
@@ -49,9 +48,9 @@ def lambda_handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
             return response
 
         response = _response(200, health_payload())
-        LOGGER.info("health_check status=ok week=2")
+        LOGGER.info("health_check status=ok")
         return response
     except Exception:
         # Never log the event, context, exception text, tokens or personal data.
-        LOGGER.error("health_check status=error week=2")
+        LOGGER.error("health_check status=error")
         return _response(500, {"status": "error", "message": "Internal server error"})

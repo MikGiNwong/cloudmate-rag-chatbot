@@ -2,7 +2,7 @@ version = 0.1
 
 [default.global.parameters]
 region = "ap-northeast-2"
-stack_name = "cloudmate-week2"
+stack_name = "cloudmate"
 
 [default.build.parameters]
 template_file = "infrastructure/template.yaml"
@@ -14,4 +14,4 @@ capabilities = "CAPABILITY_IAM"
 confirm_changeset = true
 resolve_s3 = true
 fail_on_empty_changeset = false
-tags = "Project=CloudMate Week=2 ManagedBy=AWS-SAM"
+tags = "Project=CloudMate ManagedBy=AWS-SAM"

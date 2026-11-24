@@ -12,7 +12,7 @@ from urllib.request import Request, urlopen
 
 EXPECTED = {
     "status": "ok", "service": "CloudMate",
-    "message": "AWS Lambda is working", "week": 2,
+    "message": "AWS Lambda is working",
 }
 
 

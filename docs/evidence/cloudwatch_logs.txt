@@ -1,0 +1,10 @@
+Captured after the project-stack migration and a real GET /health invocation.
+2026-11-24T17:46:54.710Z INIT_START Runtime Version: python:3.13.mainlinev2.v86	Runtime Version ARN: arn:aws:lambda:ap-northeast-2::runtime:41f88f18c15dcc5ab2dff3d50fd78f22bfe112ea0192d989c2dc0088af6a699d
+
+2026-11-24T17:46:54.801Z START RequestId: 3a27b876-b5dc-418d-af32-ae36f8f331e9 Version: $LATEST
+
+2026-11-24T17:46:54.802Z [INFO]	2026-11-24T17:46:54.801Z	3a27b876-b5dc-418d-af32-ae36f8f331e9	health_check status=ok
+
+2026-11-24T17:46:54.815Z END RequestId: 3a27b876-b5dc-418d-af32-ae36f8f331e9
+
+2026-11-24T17:46:54.815Z REPORT RequestId: 3a27b876-b5dc-418d-af32-ae36f8f331e9	Duration: 2.50 ms	Billed Duration: 90 ms	Memory Size: 128 MB	Max Memory Used: 31 MB	Init Duration: 87.30 ms

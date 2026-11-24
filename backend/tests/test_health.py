@@ -21,7 +21,7 @@ class HealthTests(unittest.TestCase):
         self.assertEqual(result["statusCode"], 200)
         self.assertEqual(json.loads(result["body"]), {
             "status": "ok", "service": "CloudMate",
-            "message": "AWS Lambda is working", "week": 2,
+            "message": "AWS Lambda is working",
         })
         self.assertEqual(result["headers"]["Content-Type"], "application/json; charset=utf-8")
         self.assertEqual(result["headers"]["Cache-Control"], "no-store")

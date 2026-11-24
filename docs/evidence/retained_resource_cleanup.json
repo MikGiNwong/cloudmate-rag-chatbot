@@ -1,0 +1,10 @@
+{
+  "old_role": "cloudmate-week2-HealthExecutionRole-1Ig7k5ShvCek",
+  "old_permission_statement": "cloudmate-week2-HealthFunctionGetHealthPermission-bnWZMZSYh1Gx",
+  "old_role_deleted": true,
+  "old_permission_removed": true,
+  "current_lambda_role": "arn:aws:iam::[AWS_ACCOUNT_ID]:role/cloudmate-HealthFunctionRole-T44As7YN4VVy",
+  "current_permission_statements": [
+    "cloudmate-HealthFunctionHealthCheckPermission-CoXhppMVVZuO"
+  ]
+}

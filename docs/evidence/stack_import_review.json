@@ -1,0 +1,43 @@
+{
+  "stack": "cloudmate",
+  "status": "CREATE_COMPLETE",
+  "execution_status": "AVAILABLE",
+  "reason": "Verify that resources and their properties defined in the template match the intended configuration of the resource import to avoid unexpected changes.",
+  "changes": [
+    {
+      "action": "Import",
+      "logical_id": "DocumentsBucket",
+      "type": "AWS::S3::Bucket"
+    },
+    {
+      "action": "Import",
+      "logical_id": "HealthExecutionRole",
+      "type": "AWS::IAM::Role"
+    },
+    {
+      "action": "Import",
+      "logical_id": "HealthFunctionGetHealthPermission",
+      "type": "AWS::Lambda::Permission"
+    },
+    {
+      "action": "Import",
+      "logical_id": "HealthFunction",
+      "type": "AWS::Lambda::Function"
+    },
+    {
+      "action": "Import",
+      "logical_id": "HealthHttpApiApiGatewayDefaultStage",
+      "type": "AWS::ApiGatewayV2::Stage"
+    },
+    {
+      "action": "Import",
+      "logical_id": "HealthHttpApi",
+      "type": "AWS::ApiGatewayV2::Api"
+    },
+    {
+      "action": "Import",
+      "logical_id": "HealthLogGroup",
+      "type": "AWS::Logs::LogGroup"
+    }
+  ]
+}

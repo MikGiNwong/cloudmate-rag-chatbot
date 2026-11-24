@@ -1,0 +1,86 @@
+{
+  "stack": "cloudmate",
+  "change_set": "samcli-deploy1795542206",
+  "execution_requested": true,
+  "changes": [
+    {
+      "action": "Modify",
+      "logical_id": "DocumentsBucket",
+      "type": "AWS::S3::Bucket",
+      "replacement": "False"
+    },
+    {
+      "action": "Remove",
+      "logical_id": "HealthExecutionRole",
+      "type": "AWS::IAM::Role",
+      "policy_action": "Retain"
+    },
+    {
+      "action": "Remove",
+      "logical_id": "HealthFunctionGetHealthPermission",
+      "type": "AWS::Lambda::Permission",
+      "policy_action": "Retain"
+    },
+    {
+      "action": "Add",
+      "logical_id": "HealthFunctionHealthCheckPermission",
+      "type": "AWS::Lambda::Permission"
+    },
+    {
+      "action": "Add",
+      "logical_id": "HealthFunctionRole",
+      "type": "AWS::IAM::Role"
+    },
+    {
+      "action": "Modify",
+      "logical_id": "HealthFunction",
+      "type": "AWS::Lambda::Function",
+      "replacement": "False"
+    },
+    {
+      "action": "Modify",
+      "logical_id": "HealthHttpApiApiGatewayDefaultStage",
+      "type": "AWS::ApiGatewayV2::Stage",
+      "replacement": "False"
+    },
+    {
+      "action": "Modify",
+      "logical_id": "HealthHttpApi",
+      "type": "AWS::ApiGatewayV2::Api",
+      "replacement": "False"
+    },
+    {
+      "action": "Modify",
+      "logical_id": "HealthLogGroup",
+      "type": "AWS::Logs::LogGroup",
+      "replacement": "False"
+    }
+  ],
+  "resource_count": 7,
+  "week_marker_in_template": false,
+  "validation_errors": [],
+  "new_role_policy": [
+    {
+      "PolicyName": "WriteHealthLogs",
+      "PolicyDocument": {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Sid": "WriteOwnLogStreams",
+            "Effect": "Allow",
+            "Action": [
+              "logs:CreateLogStream",
+              "logs:PutLogEvents"
+            ],
+            "Resource": {
+              "Fn::GetAtt": [
+                "HealthLogGroup",
+                "Arn"
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

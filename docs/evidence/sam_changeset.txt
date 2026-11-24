@@ -1,0 +1,52 @@
+$ .venv/bin/sam deploy --profile cloudmate --no-execute-changeset --no-confirm-changeset
+
+	Managed S3 bucket: aws-sam-cli-managed-default-samclisourcebucket-swh4pvbe0h84
+	Auto resolution of buckets can be turned off by setting resolve_s3=False
+	To use a specific S3 bucket, set --s3-bucket=<bucket_name>
+	Above settings can be stored in samconfig.toml
+
+	Uploading to 6374de950e3aef1953c628541d51dd1e  1078 / 1078  (100.00%)
+
+	Deploying with following values
+	===============================
+	Stack name                   : cloudmate
+	Region                       : ap-northeast-2
+	Confirm changeset            : False
+	Disable rollback             : False
+	Deployment s3 bucket         : aws-sam-cli-managed-default-samclisourcebucket-swh4pvbe0h84
+	Capabilities                 : ["CAPABILITY_IAM"]
+	Parameter overrides          : {}
+	Signing Profiles             : {}
+
+Initiating deployment
+=====================
+
+
+	Uploading to 0387b7146c20107b0ca0d863e6093b81.template  4153 / 4153  (100.00%)
+
+
+Waiting for changeset to be created..
+
+CloudFormation stack changeset
+-------------------------------------------------------------------------------------------------
+Operation                LogicalResourceId        ResourceType             Replacement
+-------------------------------------------------------------------------------------------------
++ Add                    HealthFunctionHealthCh   AWS::Lambda::Permissio   N/A
+                         eckPermission            n
++ Add                    HealthFunctionRole       AWS::IAM::Role           N/A
+* Modify                 DocumentsBucket          AWS::S3::Bucket          False
+* Modify                 HealthFunction           AWS::Lambda::Function    False
+* Modify                 HealthHttpApiApiGatewa   AWS::ApiGatewayV2::Sta   False
+                         yDefaultStage            ge
+* Modify                 HealthHttpApi            AWS::ApiGatewayV2::Api   False
+* Modify                 HealthLogGroup           AWS::Logs::LogGroup      False
+- Delete                 HealthExecutionRole      AWS::IAM::Role           N/A
+- Delete                 HealthFunctionGetHealt   AWS::Lambda::Permissio   N/A
+                         hPermission              n
+-------------------------------------------------------------------------------------------------
+
+
+Changeset created successfully. arn:aws:cloudformation:ap-northeast-2:[AWS_ACCOUNT_ID]:changeSet/samcli-deploy1795542206/610fdc5a-7656-44e1-b640-f64d89bb1c5b
+
+
+exit_code=0

@@ -2,13 +2,14 @@
 
 CloudMate는 클라우드 아키텍처 수업의 텀프로젝트로 개발하는 AWS 학습 지원 챗봇입니다. AWS 공식 기술 문서, 공개 실습 가이드, 자체 작성 FAQ를 검색하여 질문에 대한 답변과 근거 자료를 제공하는 것을 목표로 합니다. AWS를 처음 배우는 학생과 실습 중인 개발자를 주요 대상으로 합니다.
 
-**현재 AWS 실행 환경과 개발 환경을 구성하고, 상태 확인 API를 실제 AWS에 배포한 상태입니다. 리소스는 텀프로젝트 전반에 사용하는 주차 없는 이름으로 관리합니다.** 문서 검색·임베딩·생성 모델 호출과 웹 채팅 화면은 후속 개발 범위입니다.
+**2026년 11월 25일 과제 제출 후 CloudMate AWS 리소스를 모두 정리했습니다. 코드·SAM 설정·FAQ·실행 증거는 보관하고, 다음 개발 시 새 환경을 배포합니다.** 문서 검색·임베딩·생성 모델 호출과 웹 채팅 화면은 후속 개발 범위입니다.
 
 | 항목 | 내용 |
 |---|---|
 | GitHub 저장소 | [MikGiNwong/cloudmate-rag-chatbot](https://github.com/MikGiNwong/cloudmate-rag-chatbot) · 공개 저장소 |
 | AWS 리전 | 서울 `ap-northeast-2` |
-| 상태 확인 API | [GET /health](https://b1prf542b3.execute-api.ap-northeast-2.amazonaws.com/health) |
+| 현재 AWS 상태 | 과제 제출 후 리소스 삭제 완료 · API 종료 |
+| 개발 재개 | [AWS 재배포 안내](docs/redeployment.md) |
 | 검증 기준일 | 2026년 11월 25일 |
 | 설계 문서 | [1주차 설계 요약](docs/week1/design_summary.md) |
 | 실습 보고서 | [환경 구성 보고서](docs/environment_report.md) |
@@ -37,7 +38,7 @@ CloudMate는 클라우드 아키텍처 수업의 텀프로젝트로 개발하는
 
 단위 테스트 10개, Python 문법 검사, SAM 템플릿 검증과 빌드를 통과했습니다. 실행 결과는 [검증 증거 목록](docs/evidence/README.md)에서 확인할 수 있습니다. 표의 결과는 검증 기준일에 수행한 실습을 기준으로 합니다.
 
-## 3. 현재 시스템 구성
+## 3. 배포 시 시스템 구성
 
 ```mermaid
 flowchart LR
@@ -47,7 +48,7 @@ flowchart LR
     FAQ[자체 작성 AWS FAQ] --> S3[비공개 S3 문서 저장소]
 ```
 
-상태 API는 API Gateway를 통해 Lambda를 호출하고 실행 로그를 CloudWatch에 기록합니다. S3는 이후 RAG 데이터 소스로 사용할 문서를 저장합니다. 현재 상태 API는 문서 검색이나 모델 호출을 수행하지 않습니다.
+아래 구성은 배포 시 생성하는 구조이며 현재 AWS 리소스는 삭제된 상태입니다. 상태 API는 API Gateway를 통해 Lambda를 호출하고 실행 로그를 CloudWatch에 기록합니다. S3는 이후 RAG 데이터 소스로 사용할 문서를 저장합니다. 현재 상태 API는 문서 검색이나 모델 호출을 수행하지 않습니다.
 
 | 역할 | 적용 기술 |
 |---|---|
@@ -60,13 +61,13 @@ flowchart LR
 
 리소스 이름과 태그에는 주차 번호를 사용하지 않습니다. 세부 리소스 설정은 [인프라 구성 설명](infrastructure/README.md)과 [SAM 템플릿](infrastructure/template.yaml)에 정리했습니다.
 
-## 4. 상태 확인 API
+## 4. 상태 확인 API의 검증 기록
 
 ```text
 GET https://b1prf542b3.execute-api.ap-northeast-2.amazonaws.com/health
 ```
 
-실제 배포된 API에서 HTTP `200 OK`와 `application/json` 응답을 확인했습니다.
+다음 주소와 응답은 과제 제출 전 실제 배포 검증 기록입니다. 현재 해당 API는 종료됐으며, 재배포 시 새 주소를 사용합니다. 당시 HTTP `200 OK`와 `application/json` 응답을 확인했습니다.
 
 ```json
 {
@@ -76,13 +77,13 @@ GET https://b1prf542b3.execute-api.ap-northeast-2.amazonaws.com/health
 }
 ```
 
-다음 명령으로 상태 코드와 응답 본문을 확인할 수 있습니다.
+재배포 후 새 `HealthApiUrl`을 `CLOUDMATE_HEALTH_URL`에 지정해 상태 코드와 응답 본문을 확인합니다. 주소 조회 명령은 [재배포 안내](docs/redeployment.md)에 있습니다.
 
 ```sh
-curl -i https://b1prf542b3.execute-api.ap-northeast-2.amazonaws.com/health
+curl -i "$CLOUDMATE_HEALTH_URL"
 ```
 
-[실제 HTTP 응답 기록](docs/evidence/api_http.json)에 검증 시각과 결과를 보관했습니다. 실습 환경 정리 후에는 해당 주소의 서비스가 종료될 수 있습니다.
+[실제 HTTP 응답 기록](docs/evidence/api_http.json)에 검증 시각과 결과를 보관했습니다. 현재 삭제 상태와 확인 결과는 [리소스 정리 증거](docs/evidence/final_cleanup_verification.json)에 기록했습니다.
 
 ## 5. 프로젝트 구조
 
@@ -130,10 +131,10 @@ sam build
 
 상태 API는 Python 표준 라이브러리로 구현했습니다. 이번 빌드는 Docker 없이 수행했으며, `sam local`을 통한 Lambda 에뮬레이션을 사용하려면 Docker가 필요합니다.
 
-실제 API의 상태·Content-Type·JSON을 함께 검증하려면 다음 명령을 실행합니다.
+AWS를 재배포한 뒤 새 API의 상태·Content-Type·JSON을 함께 검증하려면 다음 명령을 실행합니다.
 
 ```sh
-python scripts/verify_api.py https://b1prf542b3.execute-api.ap-northeast-2.amazonaws.com/health
+python scripts/verify_api.py "$CLOUDMATE_HEALTH_URL"
 ```
 
 macOS Python에서 `CERTIFICATE_VERIFY_FAILED`가 발생하면 가상환경에 설치된 CA 번들을 지정한 뒤 다시 실행할 수 있습니다. TLS 인증서 검증은 유지합니다.
@@ -143,6 +144,8 @@ export SSL_CERT_FILE="$(python -m certifi)"
 ```
 
 ## 7. AWS 배포 방법
+
+현재 환경은 삭제되어 있으므로 다음 개발을 재개할 때만 실행합니다. 전체 복구 순서는 [AWS 재배포 안내](docs/redeployment.md)를 따릅니다.
 
 루트의 `samconfig.toml`에 리전 `ap-northeast-2`, 스택 `cloudmate`, IAM 리소스 생성 설정과 변경 세트 확인 옵션을 보존했습니다. AWS 프로파일 인증을 완료한 후 프로젝트 루트에서 실행합니다.
 
@@ -165,6 +168,8 @@ aws s3api head-object --bucket "$CLOUDMATE_BUCKET" --key documents/aws-faq.txt -
 ```
 
 ## 8. 보안 및 환경 정리
+
+2026년 11월 25일 CloudMate 스택과 SAM 관리 스택, 문서·패키지 버킷의 모든 객체 버전, 함수·API·역할·로그 그룹을 삭제하고 잔여 리소스가 없음을 확인했습니다. 로컬 개발 도구와 GitHub 자료는 유지합니다. 아래 내용은 배포 시 적용하는 보안 설정과 이후 정리 절차입니다.
 
 S3에는 퍼블릭 액세스 전체 차단, AES256 기본 암호화, ACL 비활성화와 버전 관리를 적용했습니다. Lambda 실행 역할은 해당 함수의 로그 그룹에 스트림 생성·이벤트 기록만 허용하며, S3나 Bedrock 접근 권한은 부여하지 않았습니다. 상태 API에는 초당 2건·버스트 5건의 기본 스로틀링을 설정했습니다.
 

@@ -1,0 +1,20 @@
+{
+  "main_stack_status": "DELETE_COMPLETE",
+  "bucket_cleanup": [
+    {
+      "label": "documents",
+      "bucket": "cloudmate-docs-[AWS_ACCOUNT_ID]-ap-northeast-2",
+      "versions_and_markers_deleted": 1,
+      "empty_verified": true
+    },
+    {
+      "label": "artifacts",
+      "bucket": "aws-sam-cli-managed-default-samclisourcebucket-swh4pvbe0h84",
+      "versions_and_markers_deleted": 4,
+      "empty_verified": true
+    }
+  ],
+  "documents_bucket_deleted": true,
+  "log_group_deleted": true,
+  "managed_stack_delete_requested": true
+}

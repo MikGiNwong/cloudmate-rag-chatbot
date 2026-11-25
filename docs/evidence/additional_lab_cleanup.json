@@ -1,0 +1,12 @@
+{
+  "additional_cleanup_authorized": true,
+  "lab": "CloudArchitect ECS lab",
+  "unattached_elastic_ip_released": true,
+  "ecs_stack_delete_requested": true,
+  "ecs_stack_status": "DELETE_COMPLETE",
+  "remaining_elastic_ip_count": 0,
+  "remaining_ecs_cluster_count": 0,
+  "remaining_active_stack_count": 0,
+  "ecs_cluster_already_absent": true,
+  "separate_empty_log_group_left_untouched": true
+}

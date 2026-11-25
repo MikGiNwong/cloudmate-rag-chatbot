@@ -1,0 +1,14 @@
+{
+  "checked_at_utc": "2026-11-25T06:04:21.200859+00:00",
+  "region": "ap-northeast-2",
+  "main_stack": "DELETE_COMPLETE",
+  "managed_stack": "DELETE_COMPLETE",
+  "remaining_functions": [],
+  "remaining_apis": [],
+  "remaining_project_buckets": [],
+  "remaining_log_groups": [],
+  "remaining_roles": [],
+  "remaining_cloudmate_stacks": [],
+  "unrelated_active_stack_count": 1,
+  "cloudmate_cleanup_complete": true
+}

@@ -1,0 +1,27 @@
+{
+  "scope": "CloudMate resources and the additionally authorized CloudArchitect ECS lab in ap-northeast-2",
+  "cloudmate_cleanup_complete": true,
+  "cloudmate_stack": "DELETE_COMPLETE",
+  "sam_managed_stack": "DELETE_COMPLETE",
+  "ecs_lab_stack": "DELETE_COMPLETE",
+  "remaining_cloudmate_functions": [],
+  "remaining_cloudmate_apis": [],
+  "remaining_cloudmate_log_groups": [],
+  "remaining_cloudmate_roles": [],
+  "remaining_s3_buckets": [],
+  "remaining_elastic_ip_count": 0,
+  "remaining_ecs_cluster_count": 0,
+  "remaining_active_stack_count": 0,
+  "remaining_interface_endpoints": [],
+  "remaining_flow_log_configurations": [],
+  "preserved_separate_log_group": {
+    "name": "/cs11/flow",
+    "reported_stored_bytes": 0,
+    "modified": false,
+    "active_flow_log_configuration": false
+  },
+  "local_source_faq_and_evidence_preserved": true,
+  "latest_additional_lab_verification_utc": "2026-11-25T06:11:35.108379+00:00",
+  "billing_amount_queried": false,
+  "note": "This verifies resource removal in the stated scope. Previously incurred usage can still appear on AWS bills. A separate log group outside the authorized labs was preserved."
+}

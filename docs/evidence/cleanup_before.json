@@ -1,0 +1,91 @@
+{
+  "region": "ap-northeast-2",
+  "matches_deployment_account": true,
+  "main_stack": "cloudmate",
+  "main_stack_id": "arn:aws:cloudformation:ap-northeast-2:[AWS_ACCOUNT_ID]:stack/cloudmate/1178b8e0-e82e-11f1-b5cf-0affe42f1397",
+  "main_resources": [
+    {
+      "logical_id": "DocumentsBucket",
+      "physical_id": "cloudmate-docs-[AWS_ACCOUNT_ID]-ap-northeast-2",
+      "type": "AWS::S3::Bucket"
+    },
+    {
+      "logical_id": "HealthFunction",
+      "physical_id": "cloudmate-health-check",
+      "type": "AWS::Lambda::Function"
+    },
+    {
+      "logical_id": "HealthFunctionHealthCheckPermission",
+      "physical_id": "cloudmate-HealthFunctionHealthCheckPermission-CoXhppMVVZuO",
+      "type": "AWS::Lambda::Permission"
+    },
+    {
+      "logical_id": "HealthFunctionRole",
+      "physical_id": "cloudmate-HealthFunctionRole-T44As7YN4VVy",
+      "type": "AWS::IAM::Role"
+    },
+    {
+      "logical_id": "HealthHttpApi",
+      "physical_id": "b1prf542b3",
+      "type": "AWS::ApiGatewayV2::Api"
+    },
+    {
+      "logical_id": "HealthHttpApiApiGatewayDefaultStage",
+      "physical_id": "$default",
+      "type": "AWS::ApiGatewayV2::Stage"
+    },
+    {
+      "logical_id": "HealthLogGroup",
+      "physical_id": "/aws/lambda/cloudmate-health-check",
+      "type": "AWS::Logs::LogGroup"
+    }
+  ],
+  "managed_stack": "aws-sam-cli-managed-default",
+  "managed_stack_id": "arn:aws:cloudformation:ap-northeast-2:[AWS_ACCOUNT_ID]:stack/aws-sam-cli-managed-default/c88596d0-e828-11f1-8ede-02910188166f",
+  "documents_bucket": "cloudmate-docs-[AWS_ACCOUNT_ID]-ap-northeast-2",
+  "artifacts_bucket": "aws-sam-cli-managed-default-samclisourcebucket-swh4pvbe0h84",
+  "buckets": {
+    "documents": {
+      "name": "cloudmate-docs-[AWS_ACCOUNT_ID]-ap-northeast-2",
+      "versions": [
+        {
+          "key": "documents/aws-faq.txt",
+          "version_id": "orn71qyHMH6cVeo2w8oTUxef2bRTDbbh",
+          "bytes": 3920
+        }
+      ],
+      "delete_markers": [],
+      "multipart_uploads": []
+    },
+    "artifacts": {
+      "name": "aws-sam-cli-managed-default-samclisourcebucket-swh4pvbe0h84",
+      "versions": [
+        {
+          "key": "0387b7146c20107b0ca0d863e6093b81.template",
+          "version_id": "9e7KFL3UBSdL4mqo1CzR.Z_UC4LFns.a",
+          "bytes": 4153
+        },
+        {
+          "key": "46abb0443217754a43e13dba3b583ddd",
+          "version_id": "AhMhTxyyUdztifZ7HEHMQP5ZvCWUQq06",
+          "bytes": 1105
+        },
+        {
+          "key": "6374de950e3aef1953c628541d51dd1e",
+          "version_id": "CqgycV23k_A29S410GNvDMJSYHUMUnzx",
+          "bytes": 1078
+        },
+        {
+          "key": "ec74914f924e6f8653a54e30bfe7c115.template",
+          "version_id": "TA8cDgJzd2hj_ljT4MaWZ16MMl2JXcYe",
+          "bytes": 4322
+        }
+      ],
+      "delete_markers": [],
+      "multipart_uploads": []
+    }
+  },
+  "other_stack_references_sam_bucket": false,
+  "logs_backed_up": 23,
+  "faq_backup": "Tracked data/aws-faq.txt matches verified SHA-256"
+}

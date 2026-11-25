@@ -1,0 +1,46 @@
+Actual CloudWatch log events backed up immediately before resource cleanup.
+2026-11-24T17:05:58.405Z INIT_START Runtime Version: python:3.13.mainlinev2.v86	Runtime Version ARN: arn:aws:lambda:ap-northeast-2::runtime:41f88f18c15dcc5ab2dff3d50fd78f22bfe112ea0192d989c2dc0088af6a699d
+
+2026-11-24T17:05:58.477Z START RequestId: 25219b4b-d5a9-4d23-bcfd-ad7bb9baa2f5 Version: $LATEST
+
+2026-11-24T17:05:58.477Z [INFO]	2026-11-24T17:05:58.477Z	25219b4b-d5a9-4d23-bcfd-ad7bb9baa2f5	health_check status=ok week=2
+
+2026-11-24T17:05:58.484Z END RequestId: 25219b4b-d5a9-4d23-bcfd-ad7bb9baa2f5
+
+2026-11-24T17:05:58.484Z REPORT RequestId: 25219b4b-d5a9-4d23-bcfd-ad7bb9baa2f5	Duration: 7.13 ms	Billed Duration: 76 ms	Memory Size: 128 MB	Max Memory Used: 31 MB	Init Duration: 68.17 ms
+
+2026-11-24T17:06:46.252Z START RequestId: b63b70c8-2b1a-4a88-8704-db9624a53d61 Version: $LATEST
+
+2026-11-24T17:06:46.253Z [INFO]	2026-11-24T17:06:46.253Z	b63b70c8-2b1a-4a88-8704-db9624a53d61	health_check status=ok week=2
+
+2026-11-24T17:06:46.254Z END RequestId: b63b70c8-2b1a-4a88-8704-db9624a53d61
+
+2026-11-24T17:06:46.254Z REPORT RequestId: b63b70c8-2b1a-4a88-8704-db9624a53d61	Duration: 1.81 ms	Billed Duration: 2 ms	Memory Size: 128 MB	Max Memory Used: 31 MB
+
+2026-11-24T17:46:54.710Z INIT_START Runtime Version: python:3.13.mainlinev2.v86	Runtime Version ARN: arn:aws:lambda:ap-northeast-2::runtime:41f88f18c15dcc5ab2dff3d50fd78f22bfe112ea0192d989c2dc0088af6a699d
+
+2026-11-24T17:46:54.801Z START RequestId: 3a27b876-b5dc-418d-af32-ae36f8f331e9 Version: $LATEST
+
+2026-11-24T17:46:54.802Z [INFO]	2026-11-24T17:46:54.801Z	3a27b876-b5dc-418d-af32-ae36f8f331e9	health_check status=ok
+
+2026-11-24T17:46:54.815Z END RequestId: 3a27b876-b5dc-418d-af32-ae36f8f331e9
+
+2026-11-24T17:46:54.815Z REPORT RequestId: 3a27b876-b5dc-418d-af32-ae36f8f331e9	Duration: 2.50 ms	Billed Duration: 90 ms	Memory Size: 128 MB	Max Memory Used: 31 MB	Init Duration: 87.30 ms
+
+2026-11-25T05:18:56.689Z INIT_START Runtime Version: python:3.13.mainlinev2.v86	Runtime Version ARN: arn:aws:lambda:ap-northeast-2::runtime:41f88f18c15dcc5ab2dff3d50fd78f22bfe112ea0192d989c2dc0088af6a699d
+
+2026-11-25T05:18:56.743Z START RequestId: ae609bd3-be03-424c-a543-9477eee52a2f Version: $LATEST
+
+2026-11-25T05:18:56.744Z [INFO]	2026-11-25T05:18:56.743Z	ae609bd3-be03-424c-a543-9477eee52a2f	health_check status=ok
+
+2026-11-25T05:18:56.761Z END RequestId: ae609bd3-be03-424c-a543-9477eee52a2f
+
+2026-11-25T05:18:56.761Z REPORT RequestId: ae609bd3-be03-424c-a543-9477eee52a2f	Duration: 17.71 ms	Billed Duration: 69 ms	Memory Size: 128 MB	Max Memory Used: 31 MB	Init Duration: 50.73 ms
+
+2026-11-25T05:20:51.954Z START RequestId: fb0f7527-05b9-48b9-9af8-3e887ff9390c Version: $LATEST
+
+2026-11-25T05:20:51.955Z [INFO]	2026-11-25T05:20:51.955Z	fb0f7527-05b9-48b9-9af8-3e887ff9390c	health_check status=ok
+
+2026-11-25T05:20:51.957Z END RequestId: fb0f7527-05b9-48b9-9af8-3e887ff9390c
+
+2026-11-25T05:20:51.957Z REPORT RequestId: fb0f7527-05b9-48b9-9af8-3e887ff9390c	Duration: 2.04 ms	Billed Duration: 3 ms	Memory Size: 128 MB	Max Memory Used: 32 MB
